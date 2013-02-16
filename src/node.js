@@ -45,7 +45,7 @@
 
   fabric.util.loadImage = function(url, callback, context) {
     var img = new Image();
-    if (url && url.indexOf('data') === 0) {
+    if (url && url instanceof Buffer || url.indexOf('data') === 0) {
       img.src = img._src = url;
       callback && callback.call(context, img);
     }

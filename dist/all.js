@@ -15885,7 +15885,7 @@ fabric.Image.filters.Pixelate.fromObject = function(object) {
 
   fabric.util.loadImage = function(url, callback, context) {
     var img = new Image();
-    if (url && url.indexOf('data') === 0) {
+    if (url && url instanceof Buffer || url.indexOf('data') === 0) {
       img.src = img._src = url;
       callback && callback.call(context, img);
     }
@@ -15961,6 +15961,10 @@ fabric.Image.filters.Pixelate.fromObject = function(object) {
     return this.nodeCanvas.createPNGStream();
   };
 
+  fabric.StaticCanvas.prototype.createJPEGStream = function(opts) {
+    return this.nodeCanvas.createJPEGStream(opts);
+  };
+
   var origSetWidth = fabric.StaticCanvas.prototype.setWidth;
   fabric.StaticCanvas.prototype.setWidth = function(width) {
     origSetWidth.call(this);
@@ -15982,3 +15986,4 @@ fabric.Image.filters.Pixelate.fromObject = function(object) {
   }
 
 })();
+
