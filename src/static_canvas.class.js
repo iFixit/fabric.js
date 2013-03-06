@@ -898,7 +898,7 @@
      */
     toSVG: function() {
       var markup = [
-        '<?xml version="1.0" standalone="no" ?>',
+        '<' + '?xml version="1.0" standalone="no" ?>',
           '<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN" ',
             '"http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">',
           '<svg ',
