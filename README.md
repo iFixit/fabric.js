@@ -1,4 +1,6 @@
-### Fabric [![Build Status](https://secure.travis-ci.org/kangax/fabric.js.png?branch=master)](http://travis-ci.org/#!/kangax/fabric.js)
+### Fabric
+[![Build Status](https://secure.travis-ci.org/kangax/fabric.js.png?branch=master)](http://travis-ci.org/#!/kangax/fabric.js)
+<a href="https://npmjs.org/package/fabric"><img src="https://badge.fury.io/js/fabric.png"></a>
 
 **Fabric.js** is a framework that makes it easy to work with HTML5 canvas element. It is an **interactive object model** on top of canvas element. It is also an **SVG-to-canvas parser**.
 
@@ -6,12 +8,12 @@
 
 Using Fabric.js, you can create and populate objects on canvas; objects like simple geometrical shapes — rectangles, circles, ellipses, polygons, or more complex shapes consisting of hundreds or thousands of simple paths. You can then scale, move, and rotate these objects with the mouse; modify their properties — color, transparency, z-index, etc. You can also manipulate these objects altogether — grouping them with a simple mouse selection.
 
-Contributions are very much welcome!
+[Contributions](https://github.com/kangax/fabric.js/wiki/Love-Fabric%3F-Help-us-by...) are very much welcome!
 
 ### Goals
 
-- Unit tested (1400+ tests at the moment)
-- Modular (~20 small "classes" and modules)
+- Unit tested (1660+ tests at the moment)
+- Modular (~60 small "classes", modules, mixins)
 - Cross-browser
 - [Fast](https://github.com/kangax/fabric.js/wiki/Focus-on-speed)
 - Encapsulated in one object
@@ -32,7 +34,9 @@ Contributions are very much welcome!
 - IE8 (incomplete — about 17 failing tests at the moment)
 - IE7,6 (incomplete - about 27 failing tests at the moment)
 
-You can [run automated unit tests](http://kangax.github.com/fabric.js/test/unit/) right in the browser.
+See [Fabric limitations in Old IE](https://github.com/kangax/fabric.js/wiki/Fabric-limitations-in-oldIE).
+
+You can [run automated unit tests](http://fabricjs.com/test/unit/) right in the browser.
 
 ### History
 
@@ -46,7 +50,7 @@ Fabric.js started as a foundation for design editor on [printio.ru](http://print
 
         $ node build.js
 
-    - Or build a custom distribution file, by passing (comma separated) module names to be included.<br>
+    - Or build a custom distribution file, by passing (comma separated) module names to be included.
 
             $ node build.js modules=text,serialization,parser
             // or
@@ -75,10 +79,6 @@ Fabric.js started as a foundation for design editor on [printio.ru](http://print
         # or Google Closure Compiler
         $ node build.js modules=... minifier=closure
 
-4. Optionally, you can build documentation
-
-        $ node build_docs.js
-
 ### Demos
 
 - [Demos](http://fabricjs.com/demos/)
@@ -87,9 +87,9 @@ Fabric.js started as a foundation for design editor on [printio.ru](http://print
 
 ### Documentation
 
-Documentation is always available at [http://fabricjs.com/docs/](http://fabricjs.com/docs/). You can also build it locally, following step 4 from the "Building" section of this README.
+Documentation is always available at [http://fabricjs.com/docs/](http://fabricjs.com/docs/).
 
-Also see [presentation from BK.js](http://www.slideshare.net/kangax/fabricjs-building-acanvaslibrarybk) and [presentation from Falsy Values](http://www.slideshare.net/kangax/fabric-falsy-values-8067834) for an overview of fabric.js, how it works, and its features.
+Also see [official 4-part intro series](http://fabricjs.com/articles), [presentation from BK.js](http://www.slideshare.net/kangax/fabricjs-building-acanvaslibrarybk) and [presentation from Falsy Values](http://www.slideshare.net/kangax/fabric-falsy-values-8067834) for an overview of fabric.js, how it works, and its features.
 
 ### Optional modules
 
@@ -100,9 +100,21 @@ These are the optional modules that could be specified for inclusion, when build
 - **interaction** — Adds support for interactive features of fabric — selecting/transforming objects/groups via mouse/touch devices.
 - **parser** — Adds support for `fabric.parseSVGDocument`, `fabric.loadSVGFromURL`, and `fabric.loadSVGFromString`
 - **image_filters** — Adds support for image filters, such as grayscale of white removal.
-- **easing** - Adds support for animation easing functions
+- **easing** — Adds support for animation easing functions
 - **node** — Adds support for running fabric under node.js, with help of [jsdom](https://github.com/tmpvar/jsdom) and [node-canvas](https://github.com/learnboost/node-canvas) libraries.
-- **freedrawing** - Adds support for free drawing
+- **freedrawing** — Adds support for free drawing
+- **gestures** — Adds support for multitouch gestures with help of [Event.js](https://github.com/mudcube/Event.js)
+- **object_straightening** — Adds support for rotating an object to one of 0, 90, 180, 270, etc. depending on which is angle is closer.
+
+Additional flags for build script are:
+
+- **no-strict** — Strips "use strict" directives from source
+- **no-svg-export** — Removes svg exporting functionality
+- **no-es5-compat** - Removes ES5 compat methods (Array.prototype.*, String.prototype.*, Function.prototype.*)
+
+For example:
+
+    node build.js modules=ALL exclude=json no-strict no-svg-export
 
 ### Examples of use
 
@@ -131,11 +143,12 @@ Follow [@fabric.js](http://twitter.com/fabricjs) or [@kangax](http://twitter.com
 - Ernest Delgado for the original idea of [manipulating images on canvas](http://www.ernestdelgado.com/archive/canvas/).
 - [Maxim "hakunin" Chernyak](http://twitter.com/hakunin) for ideas, and help with various parts of the library throughout its life.
 - [Sergey Nisnevich](http://nisnya.com) for help with geometry logic.
-- Github contributors: @Kingsquare, @cleercode, @jarek-itmore, @sunrei, @khronnuz, @ollym, @Kienz, @willmcneilly, @davidjrice
+- [Stefan Kienzle](https://twitter.com/kienzle_s) for help with bugs, features, documentation, github issues
+- Github contributors: @Kingsquare, @cleercode, @jarek-itmore, @sunrei, @khronnuz, @ollym, @garg, @sjpemberton09, @willmcneilly, @davidjrice, @coulix, and [more](https://github.com/kangax/fabric.js/graphs/contributors)
 
 ### MIT License
 
-Copyright (c) 2008-2012 Printio (Juriy Zaytsev, Maxim Chernyak)
+Copyright (c) 2008-2013 Printio (Juriy Zaytsev, Maxim Chernyak)
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

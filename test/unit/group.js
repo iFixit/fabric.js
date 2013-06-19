@@ -13,6 +13,15 @@
     return new fabric.Group([ rect1, rect2 ]);
   }
 
+  function makeGroupWith4Objects() {
+    var rect1 = new fabric.Rect({ top: 100, left: 100, width: 30, height: 10 }),
+        rect2 = new fabric.Rect({ top: 120, left: 50, width: 10, height: 40 }),
+        rect3 = new fabric.Rect({ top: 40, left: 0, width: 20, height: 40 }),
+        rect4 = new fabric.Rect({ top: 75, left: 75, width: 40, height: 40 });
+
+    return new fabric.Group([ rect1, rect2, rect3, rect4 ]);
+  }
+
   QUnit.module('fabric.Group', {
     teardown: function() {
       canvas.clear();
@@ -63,7 +72,7 @@
         group = new fabric.Group([ rect1, rect2, rect3 ]);
 
     ok(typeof group.remove == 'function');
-    equal(group.remove(rect2), group, 'should be chainable');
+    equal(group.remove(rect2), rect2, 'should return removed object');
     deepEqual([rect1, rect3], group.getObjects(), 'should remove object properly');
   });
 
@@ -74,7 +83,8 @@
     equal(group.size(), 2);
     group.add(new fabric.Rect());
     equal(group.size(), 3);
-    group.remove(group.getObjects()[0]).remove(group.getObjects()[0]);
+    group.remove(group.getObjects()[0]);
+    group.remove(group.getObjects()[0]);
     equal(group.size(), 1);
   });
 
@@ -123,31 +133,37 @@
     var clone = group.toObject();
 
     var expectedObject = {
-      'type': 'group',
-      'originX': 'center',
-      'originY': 'center',
-      'left': 80,
-      'top': 117.5,
-      'width': 70,
-      'height': 45,
-      'fill': 'rgb(0,0,0)',
-      'overlayFill': null,
-      'stroke': null,
-      'strokeWidth': 1,
-      'strokeDashArray': null,
-      'scaleX': 1,
-      'scaleY': 1,
-      'selectable': true,
-      'hasControls': true,
-      'hasBorders': true,
-      'hasRotatingPoint': true,
+      'type':               'group',
+      'originX':            'center',
+      'originY':            'center',
+      'left':               80,
+      'top':                117.5,
+      'width':              70,
+      'height':             45,
+      'fill':               'rgb(0,0,0)',
+      'overlayFill':        null,
+      'stroke':             null,
+      'strokeWidth':        1,
+      'strokeDashArray':    null,
+      'strokeLineCap':      'butt',
+      'strokeLineJoin':     'miter',
+      'strokeMiterLimit':   10,
+      'scaleX':             1,
+      'scaleY':             1,
+      'selectable':         true,
+      'hasControls':        true,
+      'hasBorders':         true,
+      'hasRotatingPoint':   true,
       'transparentCorners': true,
       'perPixelTargetFind': false,
-      'angle': 0,
-      'flipX': false,
-      'flipY': false,
-      'opacity': 1,
-      'objects': clone.objects
+      'shadow':             null,
+      'visible':            true,
+      'clipTo':             null,
+      'angle':              0,
+      'flipX':              false,
+      'flipY':              false,
+      'opacity':            1,
+      'objects':            clone.objects
     };
 
     deepEqual(clone, expectedObject);
@@ -168,6 +184,41 @@
     ok(typeof group.item == 'function');
     equal(group.item(0), group.getObjects()[0]);
     equal(group.item(1), group.getObjects()[1]);
+    equal(group.item(9999), undefined);
+  });
+
+  test('moveTo', function() {
+    var group = makeGroupWith4Objects(),
+        groupEl1 = group.getObjects()[0],
+        groupEl2 = group.getObjects()[1],
+        groupEl3 = group.getObjects()[2],
+        groupEl4 = group.getObjects()[3];
+
+    ok(typeof group.item(0).moveTo == 'function');
+
+    // [ 1, 2, 3, 4 ]
+    equal(group.item(0), groupEl1);
+    equal(group.item(1), groupEl2);
+    equal(group.item(2), groupEl3);
+    equal(group.item(3), groupEl4);
+    equal(group.item(9999), undefined);
+
+    group.item(0).moveTo(3);
+
+    // moved 1 to level 3 — [2, 3, 4, 1]
+    equal(group.item(3), groupEl1);
+    equal(group.item(0), groupEl2);
+    equal(group.item(1), groupEl3);
+    equal(group.item(2), groupEl4);
+    equal(group.item(9999), undefined);
+
+    group.item(0).moveTo(2);
+
+    // moved 2 to level 2 — [3, 4, 2, 1]
+    equal(group.item(3), groupEl1);
+    equal(group.item(2), groupEl2);
+    equal(group.item(0), groupEl3);
+    equal(group.item(1), groupEl4);
     equal(group.item(9999), undefined);
   });
 
@@ -245,6 +296,20 @@
     ok(group.containsPoint({ x: 50, y: 120 }));
     ok(group.containsPoint({ x: 100, y: 100 }));
     ok(!group.containsPoint({ x: 0, y: 0 }));
+
+    group.scale(2);
+    ok(group.containsPoint({ x: 50, y: 120 }));
+    ok(group.containsPoint({ x: 100, y: 160 }));
+    ok(!group.containsPoint({ x: 0, y: 0 }));
+    ok(!group.containsPoint({ x: 100, y: 170 }));
+
+    group.scale(1);
+    group.padding = 30;
+    group.setCoords();
+    ok(group.containsPoint({ x: 50, y: 120 }));
+    ok(group.containsPoint({ x: 100, y: 170 }));
+    ok(!group.containsPoint({ x: 0, y: 0 }));
+    ok(!group.containsPoint({ x: 100, y: 172 }));
   });
 
   test('forEachObject', function() {
@@ -289,7 +354,7 @@
     var group = makeGroupWith2Objects();
     ok(typeof group.toSVG == 'function');
 
-    var expectedSVG = '<g transform="translate(80 117.5)"><rect x="-15" y="-5" rx="0" ry="0" width="30" height="10" style="stroke: none; stroke-width: 1; stroke-dasharray: ; fill: rgb(0,0,0); opacity: 1;" transform="translate(20 -17.5)" /><rect x="-5" y="-20" rx="0" ry="0" width="10" height="40" style="stroke: none; stroke-width: 1; stroke-dasharray: ; fill: rgb(0,0,0); opacity: 1;" transform="translate(-30 2.5)" /></g>';
+    var expectedSVG = '<g transform="translate(80 117.5)"><rect x="-5" y="-20" rx="0" ry="0" width="10" height="40" style="stroke: none; stroke-width: 1; stroke-dasharray: ; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); opacity: 1;" transform="translate(-30 2.5)"/><rect x="-15" y="-5" rx="0" ry="0" width="30" height="10" style="stroke: none; stroke-width: 1; stroke-dasharray: ; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); opacity: 1;" transform="translate(20 -17.5)"/></g>';
     equal(group.toSVG(), expectedSVG);
   });
 
@@ -309,21 +374,76 @@
 
     equal(group.get('lockMovementX'), false);
 
-    group.objects[0].lockMovementX = true;
+    group.getObjects()[0].lockMovementX = true;
     equal(group.get('lockMovementX'), true);
 
-    group.objects[0].lockMovementX = false;
+    group.getObjects()[0].lockMovementX = false;
     equal(group.get('lockMovementX'), false);
 
     group.set('lockMovementX', true);
     equal(group.get('lockMovementX'), true);
 
     group.set('lockMovementX', false);
-    group.objects[0].lockMovementY = true;
-    group.objects[1].lockRotation = true;
+    group.getObjects()[0].lockMovementY = true;
+    group.getObjects()[1].lockRotation = true;
 
     equal(group.get('lockMovementY'), true);
     equal(group.get('lockRotation'), true);
+  });
+
+  test('z-index methods with group objects', function() {
+
+    var textBg = new fabric.Rect({
+      fill : '#abc',
+      width : 100,
+      height : 100
+    });
+
+    var text = new fabric.Text('text');
+    var group = new fabric.Group([ textBg, text ]);
+
+    canvas.add(group);
+
+    ok(group.getObjects()[0] === textBg);
+    ok(group.getObjects()[1] === text);
+
+    textBg.bringToFront();
+
+    ok(group.getObjects()[0] === text);
+    ok(group.getObjects()[1] === textBg);
+
+    textBg.sendToBack();
+
+    ok(group.getObjects()[0] === textBg);
+    ok(group.getObjects()[1] === text);
+  });
+
+  test('group reference on an object', function() {
+    var group = makeGroupWith2Objects();
+    var firstObjInGroup = group.getObjects()[0];
+    var secondObjInGroup = group.getObjects()[1];
+
+    equal(firstObjInGroup.group, group);
+    equal(secondObjInGroup.group, group);
+
+    group.remove(firstObjInGroup);
+    ok(typeof firstObjInGroup.group == 'undefined');
+  });
+
+  test('insertAt', function() {
+    var rect1 = new fabric.Rect(),
+        rect2 = new fabric.Rect(),
+        group = new fabric.Group();
+
+    group.add(rect1, rect2);
+
+    ok(typeof group.insertAt == 'function', 'should respond to `insertAt` method');
+
+    group.insertAt(rect1, 1);
+    equal(group.item(1), rect1);
+    group.insertAt(rect2, 2);
+    equal(group.item(2), rect2);
+    equal(group, group.insertAt(rect1, 2), 'should be chainable');
   });
 
   // asyncTest('cloning group with image', function() {

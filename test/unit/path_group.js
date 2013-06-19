@@ -1,31 +1,37 @@
 (function(){
 
   var REFERENCE_PATH_GROUP_OBJECT = {
-    'type':         'path-group',
-    'originX':      'center',
-    'originY':      'center',
-    'left':         0,
-    'top':          0,
-    'width':        0,
-    'height':       0,
-    'fill':         '',
-    'overlayFill':  null,
-    'stroke':       null,
-    'strokeWidth':  1,
-    'strokeDashArray': null,
-    'scaleX':       1,
-    'scaleY':       1,
-    'angle':        0,
-    'flipX':        false,
-    'flipY':        false,
-    'opacity':      1,
-    'selectable':   true,
-    'hasControls':  true,
-    'hasBorders':   true,
-    'hasRotatingPoint': true,
+    'type':               'path-group',
+    'originX':            'center',
+    'originY':            'center',
+    'left':               0,
+    'top':                0,
+    'width':              0,
+    'height':             0,
+    'fill':               '',
+    'overlayFill':        null,
+    'stroke':             null,
+    'strokeWidth':        1,
+    'strokeDashArray':    null,
+    'strokeLineCap':      'butt',
+    'strokeLineJoin':     'miter',
+    'strokeMiterLimit':   10,
+    'scaleX':             1,
+    'scaleY':             1,
+    'angle':              0,
+    'flipX':              false,
+    'flipY':              false,
+    'opacity':            1,
+    'selectable':         true,
+    'hasControls':        true,
+    'hasBorders':         true,
+    'hasRotatingPoint':   true,
     'transparentCorners': true,
     'perPixelTargetFind': false,
-    'paths':        getPathObjects()
+    'shadow':             null,
+    'visible':            true,
+    'clipTo':             null,
+    'paths':              getPathObjects()
   };
 
   function getPathElement(path) {
@@ -33,7 +39,7 @@
     el.setAttribute('d', path);
     el.setAttribute('fill', 'rgb(255,0,0)');
     el.setAttribute('stroke', 'blue');
-    el.setAttribute('troke-width', 3);
+    el.setAttribute('stroke-width', 3);
     return el;
   }
 
@@ -72,7 +78,7 @@
     paths[0].group = null;
     paths[1].group = null;
 
-    deepEqual(paths, pathGroup.getObjects());
+    deepEqual(pathGroup.getObjects(), paths);
   });
 
   test('toObject', function() {
@@ -110,7 +116,7 @@
       'paths': 'http://example.com/',
       'sourcePath': 'http://example.com/'
     });
-    deepEqual(expectedObject, pathGroup.toDatalessObject());
+    deepEqual(pathGroup.toDatalessObject(), expectedObject);
   });
 
   test('toString', function() {

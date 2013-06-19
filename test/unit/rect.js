@@ -1,32 +1,40 @@
 (function() {
 
   var REFERENCE_RECT = {
-    'type': 'rect',
-    'originX': 'center',
-    'originY': 'center',
-    'left': 0,
-    'top': 0,
-    'width': 0,
-    'height': 0,
-    'fill': 'rgb(0,0,0)',
-    'overlayFill': null,
-    'stroke': null,
-    'strokeWidth': 1,
-    'strokeDashArray': null,
-    'scaleX': 1,
-    'scaleY': 1,
-    'angle': 0,
-    'flipX': false,
-    'flipY': false,
-    'opacity': 1,
-    'selectable': true,
-    'hasControls': true,
-    'hasBorders': true,
-    'hasRotatingPoint': true,
+    'type':               'rect',
+    'originX':            'center',
+    'originY':            'center',
+    'left':               0,
+    'top':                0,
+    'width':              0,
+    'height':             0,
+    'fill':               'rgb(0,0,0)',
+    'overlayFill':        null,
+    'stroke':             null,
+    'strokeWidth':        1,
+    'strokeDashArray':    null,
+    'strokeLineCap':      'butt',
+    'strokeLineJoin':     'miter',
+    'strokeMiterLimit':   10,
+    'scaleX':             1,
+    'scaleY':             1,
+    'angle':              0,
+    'flipX':              false,
+    'flipY':              false,
+    'opacity':            1,
+    'selectable':         true,
+    'hasControls':        true,
+    'hasBorders':         true,
+    'hasRotatingPoint':   true,
     'transparentCorners': true,
     'perPixelTargetFind': false,
-    'rx': 0,
-    'ry': 0
+    'shadow':             null,
+    'visible':            true,
+    'clipTo':             null,
+    'rx':                 0,
+    'ry':                 0,
+    'x':                  0,
+    'y':                  0
   };
 
   QUnit.module('fabric.Rect');
@@ -84,25 +92,35 @@
     elRectWithAttrs.setAttribute('rx', 11);
     elRectWithAttrs.setAttribute('ry', 12);
     elRectWithAttrs.setAttribute('fill', 'rgb(255,255,255)');
-    elRectWithAttrs.setAttribute('fill-opacity', 0.45);
+    elRectWithAttrs.setAttribute('opacity', 0.45);
     elRectWithAttrs.setAttribute('stroke', 'blue');
     elRectWithAttrs.setAttribute('stroke-width', 3);
+    elRectWithAttrs.setAttribute('stroke-dasharray', '5, 2');
+    elRectWithAttrs.setAttribute('stroke-linecap', 'round');
+    elRectWithAttrs.setAttribute('stroke-linejoin', 'bevil');
+    elRectWithAttrs.setAttribute('stroke-miterlimit', 5);
     //elRectWithAttrs.setAttribute('transform', 'translate(-10,-20) scale(2) rotate(45) translate(5,10)');
 
     var rectWithAttrs = fabric.Rect.fromElement(elRectWithAttrs);
     ok(rectWithAttrs instanceof fabric.Rect);
 
     var expectedObject = fabric.util.object.extend(REFERENCE_RECT, {
-      left: 121,
-      top: 186.5,
-      width: 222,
-      height: 333,
-      fill: 'rgb(255,255,255)',
-      opacity: 0.45,
-      stroke: 'blue',
-      strokeWidth: 3,
-      rx: 11,
-      ry: 12
+      left:             121,
+      top:              186.5,
+      width:            222,
+      height:           333,
+      fill:             'rgb(255,255,255)',
+      opacity:          0.45,
+      stroke:           'blue',
+      strokeWidth:      3,
+      strokeDashArray:  [5, 2],
+      strokeLineCap:    'round',
+      strokeLineJoin:   'bevil',
+      strokeMiterLimit: 5,
+      rx:               11,
+      ry:               12,
+      x:                10,
+      y:                20
     });
     deepEqual(rectWithAttrs.toObject(), expectedObject);
   });
@@ -123,6 +141,6 @@
     var rect = new fabric.Rect({ width: 100, height: 100, rx: 20, ry: 30 });
     var svg = rect.toSVG();
 
-    equal('<rect x="-50" y="-50" rx="20" ry="30" width="100" height="100" style="stroke: none; stroke-width: 1; stroke-dasharray: ; fill: rgb(0,0,0); opacity: 1;" transform="translate(0 0)" />', svg);
+    equal(svg, '<rect x="-50" y="-50" rx="20" ry="30" width="100" height="100" style="stroke: none; stroke-width: 1; stroke-dasharray: ; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); opacity: 1;" transform="translate(0 0)"/>');
   });
 })();

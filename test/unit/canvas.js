@@ -22,14 +22,14 @@
                   '13.99], ["z", null]]}], "background": "#ff5555"}';
 
   var PATH_DATALESS_JSON = '{"objects":[{"type":"path","originX":"center","originY":"center","left":200,"top":200,"width":200,"height":200,"fill":"rgb(0,0,0)",'+
-                           '"overlayFill":null,"stroke":null,"strokeWidth":1,"strokeDashArray":null,"scaleX":1,"scaleY":1,"angle":0,"flipX":false,'+
-                           '"flipY":false,"opacity":1,"selectable":true,"hasControls":true,"hasBorders":true,"hasRotatingPoint":true,"transparentCorners":true,"perPixelTargetFind":false,'+
-                           '"path":"http://example.com/"}],"background":""}';
+                           '"overlayFill":null,"stroke":null,"strokeWidth":1,"strokeDashArray":null,"strokeLineCap":"butt","strokeLineJoin":"miter","strokeMiterLimit":10,'+
+                           '"scaleX":1,"scaleY":1,"angle":0,"flipX":false,"flipY":false,"opacity":1,"selectable":true,"hasControls":true,"hasBorders":true,"hasRotatingPoint":true,"transparentCorners":true,'+
+                           '"perPixelTargetFind":false,"shadow":null,"visible":true,"clipTo":null,"path":"http://example.com/"}],"background":""}';
 
   var RECT_JSON = '{"objects":[{"type":"rect","originX":"center","originY":"center","left":0,"top":0,"width":10,"height":10,"fill":"rgb(0,0,0)","overlayFill":null,'+
-                  '"stroke":null,"strokeWidth":1,"strokeDashArray":null,"scaleX":1,"scaleY":1,"angle":0,"flipX":false,"flipY":false,"opacity":1,'+
-                  '"selectable":true,"hasControls":true,"hasBorders":true,"hasRotatingPoint":true,"transparentCorners":true,"perPixelTargetFind":false,"rx":0,"ry":0}],'+
-                  '"background":"#ff5555"}';
+                  '"stroke":null,"strokeWidth":1,"strokeDashArray":null,"strokeLineCap":"butt","strokeLineJoin":"miter","strokeMiterLimit":10,"scaleX":1,"scaleY":1,"angle":0,"flipX":false,"flipY":false,"opacity":1,'+
+                  '"selectable":true,"hasControls":true,"hasBorders":true,"hasRotatingPoint":true,"transparentCorners":true,"perPixelTargetFind":false,"shadow":null,'+
+                  '"visible":true,"clipTo":null,"rx":0,"ry":0,"x":0,"y":0}],"background":"#ff5555"}';
 
   var el = fabric.document.createElement('canvas');
   el.width = 600; el.height = 600;
@@ -149,7 +149,7 @@
       alert("toDataURL is not supported by this environment. Some of the tests can not be run.");
     }
     else {
-      var dataURL = canvas.toDataURL('png');
+      var dataURL = canvas.toDataURL();
       // don't compare actual data url, as it is often browser-dependent
       // this.assertIdentical(emptyImageCanvasData, canvas.toDataURL('png'));
       equal(typeof dataURL, 'string');
@@ -244,6 +244,18 @@
     equal(JSON.stringify(canvas.toDatalessJSON()), PATH_DATALESS_JSON);
   });
 
+  test('toJSON with active group', function() {
+    var rect = new fabric.Rect({ width: 50, height: 50, left: 100, top: 100 });
+    var circle = new fabric.Circle({ radius: 50, left: 50, top: 50 });
+    canvas.add(rect, circle);
+    var json = JSON.stringify(canvas);
+
+    canvas.setActiveGroup(new fabric.Group([ rect, circle ])).renderAll();
+    var jsonWithActiveGroup = JSON.stringify(canvas);
+
+    equal(json, jsonWithActiveGroup);
+  });
+
   test('toObject', function() {
     ok(typeof canvas.toObject == 'function');
     var expectedObject = {
@@ -332,6 +344,23 @@
       equal(obj.get('opacity'), 1);
       ok(obj.get('path').length > 0);
     });
+  });
+
+  asyncTest('loadFromJSON with no objects', function() {
+    var c1 = new fabric.Canvas('c1', { backgroundColor: 'green' }),
+        c2 = new fabric.Canvas('c2', { backgroundColor: 'red' });
+
+    var json = c1.toJSON();
+    var fired = false;
+    c2.loadFromJSON(json, function() {
+      fired = true;
+    });
+
+    setTimeout(function() {
+      ok(fired, 'Callback should be fired even if no objects');
+      equal(c2.backgroundColor, 'green', 'Color should be set properly');
+      start();
+    }, 500);
   });
 
   // asyncTest('loadFromJSON with backgroundImage', function() {
@@ -499,10 +528,10 @@
     canvas.add(rect1, rect2);
 
     canvas.setActiveObject(rect1);
-    ok(rect1.isActive());
+    ok(rect1.active);
 
     canvas.setActiveObject(rect2);
-    ok(rect2.isActive());
+    ok(rect2.active);
   });
 
   test('getActiveObject', function() {
@@ -566,7 +595,7 @@
     canvas.setActiveObject(canvas.item(0));
 
     canvas.deactivateAll();
-    ok(!canvas.item(0).isActive());
+    ok(!canvas.item(0).active);
     equal(canvas.getActiveObject(), null);
     equal(canvas.getActiveGroup(), null);
   });
@@ -595,7 +624,7 @@
     });
 
     canvas.deactivateAllWithDispatch();
-    ok(!canvas.item(0).isActive());
+    ok(!canvas.item(0).active);
     equal(canvas.getActiveObject(), null);
     equal(canvas.getActiveGroup(), null);
 
@@ -622,6 +651,18 @@
 
     canvas.add(makeRect());
     equal(canvas.toString(), '#<fabric.Canvas (1): { objects: 1 }>');
+  });
+
+  test('toSVG with active group', function() {
+    var rect = new fabric.Rect({ width: 50, height: 50, left: 100, top: 100 });
+    var circle = new fabric.Circle({ radius: 50, left: 50, top: 50 });
+    canvas.add(rect, circle);
+    var svg = canvas.toSVG();
+
+    canvas.setActiveGroup(new fabric.Group([ rect, circle ])).renderAll();
+    var svgWithActiveGroup = canvas.toSVG();
+
+    equal(svg, svgWithActiveGroup);
   });
 
   // test('dispose', function() {
@@ -708,14 +749,14 @@
 
     equal(canvas.getWidth(), 600);
     equal(canvas.setWidth(444), canvas, 'chainable');
-    equal(canvas.getWidth(), fabric.isLikelyNode ? undefined : 444);
+    equal(canvas.getWidth(), 444);
   });
 
   test('getSetHeight', function() {
     ok(typeof canvas.getHeight == 'function');
     equal(canvas.getHeight(), 600);
     equal(canvas.setHeight(765), canvas, 'chainable');
-    equal(canvas.getHeight(), fabric.isLikelyNode ? undefined : 765);
+    equal(canvas.getHeight(), 765);
   });
 
   test('containsPoint', function() {
@@ -904,6 +945,23 @@
 
       start();
     });
+  });
+
+  test('clipTo', function() {
+    canvas.clipTo = function(ctx) {
+      ctx.arc(0, 0, 10, 0, Math.PI * 2, false);
+    };
+
+    var error;
+    try {
+      canvas.renderAll();
+    }
+    catch(err) {
+      error = err;
+    }
+    delete canvas.clipTo;
+
+    ok(typeof error == 'undefined', 'renderAll with clipTo does not throw');
   });
 
 })();
