@@ -1,3 +1,3 @@
 #/bin/bash
 
-node build.js minifier=yui modules=interactive no-svg-export
+node build.js minifier=yui modules=interaction,node no-svg-export
