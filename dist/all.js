@@ -1,4 +1,4 @@
-/* build: `node build.js modules=interaction no-svg-export` */
+/* build: `node build.js modules=interaction,node no-svg-export` */
 /*! Fabric.js Copyright 2008-2013, Printio (Juriy Zaytsev, Maxim Chernyak) */
 
 var fabric = fabric || { version: "1.2.0" };
@@ -568,7 +568,9 @@ fabric.Collection = {
   function populateWithProperties(source, destination, properties) {
     if (properties && Object.prototype.toString.call(properties) === '[object Array]') {
       for (var i = 0, len = properties.length; i < len; i++) {
-        destination[properties[i]] = source[properties[i]];
+        if (properties[i] in source) {
+          destination[properties[i]] = source[properties[i]];
+        }
       }
     }
   }
@@ -4215,7 +4217,7 @@ fabric.Shadow = fabric.util.createClass(/** @lends fabric.Shadow.prototype */ {
       t.target.set('left', t.original.left);
       t.target.set('top', t.original.top);
 
-      if (e.altKey || this.centerTransform) {
+      if (e.altKey || this.centerTransform || t.target.centerTransform) {
         if (t.originX !== 'center') {
           if (t.originX === 'right') {
             t.mouseXSign = -1;
@@ -4473,7 +4475,11 @@ fabric.Shadow = fabric.util.createClass(/** @lends fabric.Shadow.prototype */ {
           // only if there's an active object
           if (target !== this._activeObject) {
             // and that object is not the actual target
-            var group = new fabric.Group([ this._activeObject, target ]);
+            var objects = this.getObjects();
+            var isActiveLower = objects.indexOf(this._activeObject) < objects.indexOf(target);
+            var group = new fabric.Group(
+              isActiveLower ? [ target, this._activeObject ] : [ this._activeObject, target ]);
+
             this.setActiveGroup(group);
             activeGroup = this.getActiveGroup();
             this.fire('selection:created', { target: activeGroup, e: e });
@@ -4549,7 +4555,7 @@ fabric.Shadow = fabric.util.createClass(/** @lends fabric.Shadow.prototype */ {
         }
       }
 
-      // adjust the mouse coordinates when dealing with padding      
+      // adjust the mouse coordinates when dealing with padding
       if (abs(localMouse.x) > target.padding) {
         if (localMouse.x < 0 ) {
           localMouse.x += target.padding;
@@ -4559,13 +4565,13 @@ fabric.Shadow = fabric.util.createClass(/** @lends fabric.Shadow.prototype */ {
       } else { // mouse is within the padding, set to 0
         localMouse.x = 0;
       }
-      
+
       if (abs(localMouse.y) > target.padding) {
         if (localMouse.y < 0 ) {
           localMouse.y += target.padding;
         } else {
           localMouse.y -= target.padding;
-        }      
+        }
       } else {
         localMouse.y = 0;
       }
@@ -4574,9 +4580,9 @@ fabric.Shadow = fabric.util.createClass(/** @lends fabric.Shadow.prototype */ {
       var newScaleX = target.scaleX, newScaleY = target.scaleY;
       if (by === 'equally' && !lockScalingX && !lockScalingY) {
         var dist = localMouse.y + localMouse.x;
-        var lastDist = (target.height + (target.strokeWidth)) * t.original.scaleY + 
+        var lastDist = (target.height + (target.strokeWidth)) * t.original.scaleY +
                        (target.width + (target.strokeWidth)) * t.original.scaleX;
-        
+
         // We use t.scaleX/Y instead of target.scaleX/Y because the object may have a min scale and we'll loose the proportions
         newScaleX = t.original.scaleX * dist/lastDist;
         newScaleY = t.original.scaleY * dist/lastDist;
@@ -5901,6 +5907,13 @@ fabric.util.object.extend(fabric.StaticCanvas.prototype, /** @lends fabric.Stati
      * @default
      */
     cornerColor:              'rgba(102,153,255,0.5)',
+
+    /**
+     * When true, this object will center point as the origin of transformation
+     * when being resized via the controls.
+     * @type Boolean
+     */
+    centerTransform:        false,
 
     /**
      * Color of object's fill
@@ -10692,4 +10705,191 @@ fabric.util.object.extend(fabric.Object.prototype, /** @lends fabric.Object.prot
   fabric.Image.async = true;
 
 })(typeof exports !== 'undefined' ? exports : this);
+
+
+(function() {
+
+  if (typeof document !== 'undefined' && typeof window !== 'undefined') {
+    return;
+  }
+
+  var DOMParser = new require('xmldom').DOMParser,
+      URL = require('url'),
+      HTTP = require('http'),
+      HTTPS = require('https'),
+
+      Canvas = require('canvas'),
+      Image = require('canvas').Image;
+
+  /** @private */
+  function request(url, encoding, callback) {
+    var oURL = URL.parse(url);
+
+    // detect if http or https is used
+    if ( !oURL.port ) {
+      oURL.port = ( oURL.protocol.indexOf('https:') === 0 ) ? 443 : 80;
+    }
+
+    // assign request handler based on protocol
+    var reqHandler = ( oURL.port === 443 ) ? HTTPS : HTTP;
+
+    var req = reqHandler.request({
+      hostname: oURL.hostname,
+      port: oURL.port,
+      path: oURL.path,
+      method: 'GET'
+    }, function(response){
+      var body = "";
+      if (encoding) {
+        response.setEncoding(encoding);
+      }
+      response.on('end', function () {
+        callback(body);
+      });
+      response.on('data', function (chunk) {
+        if (response.statusCode === 200) {
+          body += chunk;
+        }
+      });
+    });
+
+    req.on('error', function(err) {
+      if (err.errno === process.ECONNREFUSED) {
+        fabric.log('ECONNREFUSED: connection refused to ' + oURL.hostname + ':' + oURL.port);
+      }
+      else {
+        fabric.log(err.message);
+      }
+    });
+
+    req.end();
+  }
+
+  /** @private */
+  function request_fs(url, callback){
+    var fs = require('fs'),
+    stream = fs.createReadStream(url),
+    body = '';
+    stream.on('data', function(chunk){
+        body += chunk;
+    });
+    stream.on('end', function(){
+      callback(body);
+    });
+  }
+
+  fabric.util.loadImage = function(url, callback, context) {
+    var createImageAndCallBack = function(data){
+      img.src = new Buffer(data, 'binary');
+      // preserving original url, which seems to be lost in node-canvas
+      img._src = url;
+      callback && callback.call(context, img);
+    };
+    var img = new Image();
+    if (url && (url instanceof Buffer || url.indexOf('data') === 0)) {
+      img.src = img._src = url;
+      callback && callback.call(context, img);
+    }
+    else if (url && url.indexOf('http') !== 0) {
+      request_fs(url, createImageAndCallBack);
+    }
+    else if (url) {
+      request(url, 'binary', createImageAndCallBack);
+    }
+  };
+
+  fabric.loadSVGFromURL = function(url, callback) {
+    url = url.replace(/^\n\s*/, '').replace(/\?.*$/, '').trim();
+    if (url.indexOf('http') !== 0) {
+      request_fs(url, function(body) {
+        fabric.loadSVGFromString(body, callback);
+      });
+    }
+    else {
+      request(url, '', function(body) {
+        fabric.loadSVGFromString(body, callback);
+      });
+    }
+  };
+
+  fabric.loadSVGFromString = function(string, callback) {
+    var doc = new DOMParser().parseFromString(string);
+    fabric.parseSVGDocument(doc.documentElement, function(results, options) {
+      callback(results, options);
+    });
+  };
+
+  fabric.util.getScript = function(url, callback) {
+    request(url, '', function(body) {
+      eval(body);
+      callback && callback();
+    });
+  };
+
+  fabric.Image.fromObject = function(object, callback) {
+    fabric.util.loadImage(object.src, function(img) {
+      var oImg = new fabric.Image(img);
+
+      oImg._initConfig(object);
+      oImg._initFilters(object);
+      callback(oImg);
+    });
+  };
+
+  /**
+   * Only available when running fabric on node.js
+   * @param width Canvas width
+   * @param height Canvas height
+   * @return {Object} wrapped canvas instance
+   */
+  fabric.createCanvasForNode = function(width, height) {
+
+    var canvasEl = fabric.document.createElement('canvas'),
+        nodeCanvas = new Canvas(width || 600, height || 600);
+
+    // jsdom doesn't create style on canvas element, so here be temp. workaround
+    canvasEl.style = { };
+
+    canvasEl.width = nodeCanvas.width;
+    canvasEl.height = nodeCanvas.height;
+
+    var FabricCanvas = fabric.Canvas || fabric.StaticCanvas;
+    var fabricCanvas = new FabricCanvas(canvasEl);
+    fabricCanvas.contextContainer = nodeCanvas.getContext('2d');
+    fabricCanvas.nodeCanvas = nodeCanvas;
+    fabricCanvas.Font = Canvas.Font;
+
+    return fabricCanvas;
+  };
+
+  /** @ignore */
+  fabric.StaticCanvas.prototype.createPNGStream = function() {
+    return this.nodeCanvas.createPNGStream();
+  };
+
+  fabric.StaticCanvas.prototype.createJPEGStream = function(opts) {
+    return this.nodeCanvas.createJPEGStream(opts);
+  };
+
+  var origSetWidth = fabric.StaticCanvas.prototype.setWidth;
+  fabric.StaticCanvas.prototype.setWidth = function(width) {
+    origSetWidth.call(this, width);
+    this.nodeCanvas.width = width;
+    return this;
+  };
+  if (fabric.Canvas) {
+    fabric.Canvas.prototype.setWidth = fabric.StaticCanvas.prototype.setWidth;
+  }
+
+  var origSetHeight = fabric.StaticCanvas.prototype.setHeight;
+  fabric.StaticCanvas.prototype.setHeight = function(height) {
+    origSetHeight.call(this, height);
+    this.nodeCanvas.height = height;
+    return this;
+  };
+  if (fabric.Canvas) {
+    fabric.Canvas.prototype.setHeight = fabric.StaticCanvas.prototype.setHeight;
+  }
+
+})();
 
