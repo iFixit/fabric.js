@@ -2458,7 +2458,7 @@ fabric.Shadow = fabric.util.createClass(/** @lends fabric.Shadow.prototype */ {
       offsetX: this.offsetX,
       offsetY: this.offsetY
     };
-  },
+  }
 
   
 });
