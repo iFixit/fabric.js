@@ -1,5 +1,7 @@
 (function () {
 
+  var unknown = 'unknown';
+
   /* EVENT HANDLING */
 
   function areHostMethods(object) {
@@ -7,19 +9,22 @@
         t, i, len = methodNames.length;
     for (i = 0; i < len; i++) {
       t = typeof object[methodNames[i]];
-      if (!(/^(?:function|object|unknown)$/).test(t)) return false;
+      if (!(/^(?:function|object|unknown)$/).test(t)) {
+        return false;
+      }
     }
     return true;
   }
-  var getUniqueId = (function () {
-    var uid = 0;
-    return function (element) {
-      return element.__uniqueID || (element.__uniqueID = 'uniqueID__' + uid++);
-    };
-  })();
 
   /** @ignore */
-  var getElement, setElement;
+  var getElement,
+      setElement,
+      getUniqueId = (function () {
+        var uid = 0;
+        return function (element) {
+          return element.__uniqueID || (element.__uniqueID = 'uniqueID__' + uid++);
+        };
+      })();
 
   (function () {
     var elements = { };
@@ -147,9 +152,8 @@
 
   /**
    * Adds an event listener to an element
-   * @mthod addListener
-   * @memberOf fabric.util
    * @function
+   * @memberOf fabric.util
    * @param {HTMLElement} element
    * @param {String} eventName
    * @param {Function} handler
@@ -158,9 +162,8 @@
 
   /**
    * Removes an event listener from an element
-   * @mthod removeListener
-   * @memberOf fabric.util
    * @function
+   * @memberOf fabric.util
    * @param {HTMLElement} element
    * @param {String} eventName
    * @param {Function} handler
@@ -170,42 +173,20 @@
   /**
    * Cross-browser wrapper for getting event's coordinates
    * @memberOf fabric.util
-   * @param {Event} event
+   * @param {Event} event Event object
    * @param {HTMLCanvasElement} upperCanvasEl &lt;canvas> element on which object selection is drawn
    */
   function getPointer(event, upperCanvasEl) {
     event || (event = fabric.window.event);
 
-    var element = event.target || (typeof event.srcElement !== 'unknown' ? event.srcElement : null),
-        body = fabric.document.body || {scrollLeft: 0, scrollTop: 0},
-        docElement = fabric.document.documentElement,
-        orgElement = element,
-        scrollLeft = 0,
-        scrollTop = 0,
-        firstFixedAncestor;
+    var element = event.target ||
+                  (typeof event.srcElement !== unknown ? event.srcElement : null),
 
-    while (element && element.parentNode && !firstFixedAncestor) {
-      element = element.parentNode;
-
-      if (element !== fabric.document && fabric.util.getElementStyle(element, 'position') === 'fixed') firstFixedAncestor = element;
-
-      if (element !== fabric.document && orgElement !== upperCanvasEl && fabric.util.getElementStyle(element, 'position') === 'absolute') {
-        scrollLeft = 0;
-        scrollTop = 0;
-      }
-      else if (element === fabric.document && orgElement !== upperCanvasEl) {
-        scrollLeft = body.scrollLeft || docElement.scrollLeft || 0;
-        scrollTop = body.scrollTop ||  docElement.scrollTop || 0;
-      }
-      else {
-        scrollLeft += element.scrollLeft || 0;
-        scrollTop += element.scrollTop || 0;
-      }
-    }
+        scroll = fabric.util.getScrollLeftTop(element, upperCanvasEl);
 
     return {
-      x: pointerX(event) + scrollLeft,
-      y: pointerY(event) + scrollTop
+      x: pointerX(event) + scroll.left,
+      y: pointerY(event) + scroll.top
     };
   }
 
@@ -213,25 +194,28 @@
     // looks like in IE (<9) clientX at certain point (apparently when mouseup fires on VML element)
     // is represented as COM object, with all the consequences, like "unknown" type and error on [[Get]]
     // need to investigate later
-    return (typeof event.clientX !== 'unknown' ? event.clientX : 0);
+    return (typeof event.clientX !== unknown ? event.clientX : 0);
+  },
+
+  pointerY = function(event) {
+    return (typeof event.clientY !== unknown ? event.clientY : 0);
   };
 
-  var pointerY = function(event) {
-    return (typeof event.clientY !== 'unknown' ? event.clientY : 0);
-  };
+  function _getPointer(event, pageProp, clientProp) {
+    var touchProp = event.type === 'touchend' ? 'changedTouches' : 'touches';
+
+    return (event[touchProp] && event[touchProp][0]
+      ? (event[touchProp][0][pageProp] - (event[touchProp][0][pageProp] - event[touchProp][0][clientProp]))
+        || event[clientProp]
+      : event[clientProp]);
+  }
 
   if (fabric.isTouchSupported) {
     pointerX = function(event) {
-      if (event.type !== 'touchend') {
-        return (event.touches && event.touches[0] ? (event.touches[0].pageX - (event.touches[0].pageX - event.touches[0].clientX)) || event.clientX : event.clientX);
-      }
-      return (event.changedTouches && event.changedTouches[0] ? (event.changedTouches[0].pageX - (event.changedTouches[0].pageX - event.changedTouches[0].clientX)) || event.clientX : event.clientX);
+      return _getPointer(event, 'pageX', 'clientX');
     };
     pointerY = function(event) {
-      if (event.type !== 'touchend') {
-        return (event.touches && event.touches[0] ? (event.touches[0].pageY - (event.touches[0].pageY - event.touches[0].clientY)) || event.clientY : event.clientY);
-      }
-      return (event.changedTouches && event.changedTouches[0] ? (event.changedTouches[0].pageY - (event.changedTouches[0].pageY - event.changedTouches[0].clientY)) || event.clientY : event.clientY);
+      return _getPointer(event, 'pageY', 'clientY');
     };
   }
 

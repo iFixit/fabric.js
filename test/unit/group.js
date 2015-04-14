@@ -7,10 +7,10 @@
   }
 
   function makeGroupWith2Objects() {
-    var rect1 = new fabric.Rect({ top: 100, left: 100, width: 30, height: 10 }),
-        rect2 = new fabric.Rect({ top: 120, left: 50, width: 10, height: 40 });
+    var rect1 = new fabric.Rect({ top: 100, left: 100, width: 30, height: 10, strokeWidth: 0 }),
+        rect2 = new fabric.Rect({ top: 120, left: 50, width: 10, height: 40, strokeWidth: 0 });
 
-    return new fabric.Group([ rect1, rect2 ]);
+    return new fabric.Group([ rect1, rect2 ], {strokeWidth: 0});
   }
 
   function makeGroupWith4Objects() {
@@ -52,17 +52,35 @@
     ok(typeof group.getObjects == 'function');
     ok(Object.prototype.toString.call(group.getObjects()) == '[object Array]', 'should be an array');
     equal(group.getObjects().length, 2, 'should have 2 items');
-    deepEqual([ rect1, rect2 ], group.getObjects(), 'should return deepEqual objects as those passed to constructor');
+    deepEqual(group.getObjects(), [ rect1, rect2 ], 'should return deepEqual objects as those passed to constructor');
+  });
+
+  test('getObjects with type', function() {
+    var rect = new fabric.Rect({ width: 10, height: 20 }),
+        circle = new fabric.Circle({ radius: 30 });
+
+    var group = new fabric.Group([ rect, circle ]);
+
+    equal(group.size(), 2, 'should have length=2 initially');
+
+    deepEqual(group.getObjects('rect'), [rect], 'should return rect only');
+    deepEqual(group.getObjects('circle'), [circle], 'should return circle only');
   });
 
   test('add', function() {
     var group = makeGroupWith2Objects();
-    var rect = new fabric.Rect();
+    var rect1 = new fabric.Rect(),
+        rect2 = new fabric.Rect(),
+        rect3 = new fabric.Rect();
 
     ok(typeof group.add == 'function');
-    equal(group.add(rect), group, 'should be chainable');
-    equal(group.getObjects()[group.getObjects().length-1], rect, 'last object should be newly added one');
+    equal(group.add(rect1), group, 'should be chainable');
+    strictEqual(group.item(group.size()-1), rect1, 'last object should be newly added one');
     equal(group.getObjects().length, 3, 'there should be 3 objects');
+
+    group.add(rect2, rect3);
+    strictEqual(group.item(group.size()-1), rect3, 'last object should be last added one');
+    equal(group.size(), 5, 'there should be 5 objects');
   });
 
   test('remove', function() {
@@ -72,8 +90,11 @@
         group = new fabric.Group([ rect1, rect2, rect3 ]);
 
     ok(typeof group.remove == 'function');
-    equal(group.remove(rect2), rect2, 'should return removed object');
-    deepEqual([rect1, rect3], group.getObjects(), 'should remove object properly');
+    equal(group.remove(rect2), group, 'should be chainable');
+    deepEqual(group.getObjects(), [rect1, rect3], 'should remove object properly');
+
+    group.remove(rect1, rect3);
+    equal(group.isEmpty(), true, 'group should be empty');
   });
 
   test('size', function() {
@@ -133,37 +154,33 @@
     var clone = group.toObject();
 
     var expectedObject = {
-      'type':               'group',
-      'originX':            'center',
-      'originY':            'center',
-      'left':               80,
-      'top':                117.5,
-      'width':              70,
-      'height':             45,
-      'fill':               'rgb(0,0,0)',
-      'overlayFill':        null,
-      'stroke':             null,
-      'strokeWidth':        1,
-      'strokeDashArray':    null,
-      'strokeLineCap':      'butt',
-      'strokeLineJoin':     'miter',
-      'strokeMiterLimit':   10,
-      'scaleX':             1,
-      'scaleY':             1,
-      'selectable':         true,
-      'hasControls':        true,
-      'hasBorders':         true,
-      'hasRotatingPoint':   true,
-      'transparentCorners': true,
-      'perPixelTargetFind': false,
-      'shadow':             null,
-      'visible':            true,
-      'clipTo':             null,
-      'angle':              0,
-      'flipX':              false,
-      'flipY':              false,
-      'opacity':            1,
-      'objects':            clone.objects
+      'type':                     'group',
+      'originX':                  'left',
+      'originY':                  'top',
+      'left':                     50,
+      'top':                      100,
+      'width':                    80,
+      'height':                   60,
+      'fill':                     'rgb(0,0,0)',
+      'stroke':                   null,
+      'strokeWidth':              0,
+      'strokeDashArray':          null,
+      'strokeLineCap':            'butt',
+      'strokeLineJoin':           'miter',
+      'strokeMiterLimit':         10,
+      'scaleX':                   1,
+      'scaleY':                   1,
+      'shadow':                   null,
+      'visible':                  true,
+      'backgroundColor':          '',
+      'clipTo':                   null,
+      'angle':                    0,
+      'flipX':                    false,
+      'flipY':                    false,
+      'opacity':                  1,
+      'fillRule':                 'nonzero',
+      'globalCompositeOperation': 'source-over',
+      'objects':                  clone.objects
     };
 
     deepEqual(clone, expectedObject);
@@ -172,6 +189,24 @@
     ok(group.getObjects() !== clone.objects, 'should produce different object array');
     ok(group.getObjects()[0] !== clone.objects[0], 'should produce different objects in array');
   });
+
+test('toObject without default values', function() {
+  var group = makeGroupWith2Objects();
+  group.includeDefaultValues = false;
+  var clone = group.toObject();
+
+  var expectedObject = {
+    'type':               'group',
+    'left':               50,
+    'top':                100,
+    'width':              80,
+    'height':             60,
+    'strokeWidth':        0,
+    'objects':            clone.objects
+  };
+
+  deepEqual(clone, expectedObject);
+});
 
   test('render', function() {
     var group = makeGroupWith2Objects();
@@ -288,28 +323,26 @@
   test('containsPoint', function() {
 
     var group = makeGroupWith2Objects();
+    group.set({ originX: 'center', originY: 'center' }).setCoords();
+
     //  Rect #1     top: 100, left: 100, width: 30, height: 10
     //  Rect #2     top: 120, left: 50, width: 10, height: 40
 
     ok(typeof group.containsPoint == 'function');
 
-    ok(group.containsPoint({ x: 50, y: 120 }));
-    ok(group.containsPoint({ x: 100, y: 100 }));
     ok(!group.containsPoint({ x: 0, y: 0 }));
 
     group.scale(2);
     ok(group.containsPoint({ x: 50, y: 120 }));
     ok(group.containsPoint({ x: 100, y: 160 }));
     ok(!group.containsPoint({ x: 0, y: 0 }));
-    ok(!group.containsPoint({ x: 100, y: 170 }));
 
     group.scale(1);
     group.padding = 30;
     group.setCoords();
     ok(group.containsPoint({ x: 50, y: 120 }));
-    ok(group.containsPoint({ x: 100, y: 170 }));
+    ok(!group.containsPoint({ x: 100, y: 170 }));
     ok(!group.containsPoint({ x: 0, y: 0 }));
-    ok(!group.containsPoint({ x: 100, y: 172 }));
   });
 
   test('forEachObject', function() {
@@ -354,7 +387,7 @@
     var group = makeGroupWith2Objects();
     ok(typeof group.toSVG == 'function');
 
-    var expectedSVG = '<g transform="translate(80 117.5)"><rect x="-5" y="-20" rx="0" ry="0" width="10" height="40" style="stroke: none; stroke-width: 1; stroke-dasharray: ; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); opacity: 1;" transform="translate(-30 2.5)"/><rect x="-15" y="-5" rx="0" ry="0" width="30" height="10" style="stroke: none; stroke-width: 1; stroke-dasharray: ; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); opacity: 1;" transform="translate(20 -17.5)"/></g>';
+    var expectedSVG = '<g transform="translate(90 130)">\n<rect x="-15" y="-5" rx="0" ry="0" width="30" height="10" style="stroke: none; stroke-width: 0; stroke-dasharray: ; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform="translate(25 -25)"/>\n<rect x="-5" y="-20" rx="0" ry="0" width="10" height="40" style="stroke: none; stroke-width: 0; stroke-dasharray: ; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(0,0,0); fill-rule: nonzero; opacity: 1;" transform="translate(-35 10)"/>\n</g>\n';
     equal(group.toSVG(), expectedSVG);
   });
 
@@ -443,7 +476,7 @@
     equal(group.item(1), rect1);
     group.insertAt(rect2, 2);
     equal(group.item(2), rect2);
-    equal(group, group.insertAt(rect1, 2), 'should be chainable');
+    equal(group.insertAt(rect1, 2), group, 'should be chainable');
   });
 
   // asyncTest('cloning group with image', function() {

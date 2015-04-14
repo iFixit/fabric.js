@@ -15,38 +15,38 @@
       IMG_HEIGHT  = 110;
 
   var REFERENCE_IMG_OBJECT = {
-    'type':               'image',
-    'originX':            'center',
-    'originY':            'center',
-    'left':               0,
-    'top':                0,
-    'width':              IMG_WIDTH, // node-canvas doesn't seem to allow setting width/height on image objects
-    'height':             IMG_HEIGHT, // or does it now?
-    'fill':               'rgb(0,0,0)',
-    'overlayFill':        null,
-    'stroke':             null,
-    'strokeWidth':        1,
-    'strokeDashArray':    null,
-    'strokeLineCap':      'butt',
-    'strokeLineJoin':     'miter',
-    'strokeMiterLimit':   10,
-    'scaleX':             1,
-    'scaleY':             1,
-    'angle':              0,
-    'flipX':              false,
-    'flipY':              false,
-    'opacity':            1,
-    'src':                fabric.isLikelyNode ? undefined : IMG_SRC,
-    'selectable':         true,
-    'hasControls':        true,
-    'hasBorders':         true,
-    'hasRotatingPoint':   true,
-    'transparentCorners': true,
-    'perPixelTargetFind': false,
-    'shadow':             null,
-    'visible':            true,
-    'clipTo':             null,
-    'filters':            []
+    'type':                     'image',
+    'originX':                  'left',
+    'originY':                  'top',
+    'left':                     0,
+    'top':                      0,
+    'width':                    IMG_WIDTH, // node-canvas doesn't seem to allow setting width/height on image objects
+    'height':                   IMG_HEIGHT, // or does it now?
+    'fill':                     'rgb(0,0,0)',
+    'stroke':                   null,
+    'strokeWidth':              1,
+    'strokeDashArray':          null,
+    'strokeLineCap':            'butt',
+    'strokeLineJoin':           'miter',
+    'strokeMiterLimit':         10,
+    'scaleX':                   1,
+    'scaleY':                   1,
+    'angle':                    0,
+    'flipX':                    false,
+    'flipY':                    false,
+    'opacity':                  1,
+    'src':                      fabric.isLikelyNode ? undefined : IMG_SRC,
+    'shadow':                   null,
+    'visible':                  true,
+    'backgroundColor':          '',
+    'clipTo':                   null,
+    'filters':                  [],
+    'crossOrigin':              '',
+    'fillRule':                 'nonzero',
+    'globalCompositeOperation': 'source-over',
+    'alignX':                   'none',
+    'alignY':                   'none',
+    'meetOrSlice':              'meet'
   };
 
   function _createImageElement() {
@@ -145,8 +145,41 @@
       var elImage = _createImageElement();
       equal(image.setElement(elImage), image, 'chainable');
       equal(image.getElement(), elImage);
+      equal(image._originalElement, elImage);
 
       start();
+    });
+  });
+
+  asyncTest('crossOrigin', function() {
+    createImageObject(function(image) {
+      equal(image.crossOrigin, '', 'initial crossOrigin value should be set');
+
+      start();
+
+      var elImage = _createImageElement();
+      elImage.crossOrigin = 'anonymous';
+      var image = new fabric.Image(elImage);
+      equal(image.crossOrigin, '', 'crossOrigin value on an instance takes precedence');
+
+      var objRepr = image.toObject();
+      equal(objRepr.crossOrigin, '', 'toObject should return proper crossOrigin value');
+
+      var elImage2 = _createImageElement();
+	  elImage2.crossOrigin = 'anonymous';
+      image.setElement(elImage2);
+      equal(elImage2.crossOrigin, 'anonymous', 'setElement should set proper crossOrigin on an img element');
+
+      // fromObject doesn't work on Node :/
+      if (fabric.isLikelyNode) {
+        start();
+        return;
+      }
+	  
+      fabric.Image.fromObject(objRepr, function(img) {
+        equal(img.crossOrigin, '');
+        start();
+      });
     });
   });
 

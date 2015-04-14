@@ -4,8 +4,8 @@
 
   var emptyImageCanvasData = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAfQAAAH0CAYAAADL1t+KAAAH7ElEQVR4nO3VMQ0AMAzAsPInvYHoMS2yEeTLHADge/M6AADYM3QACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIuMjH4b7osLFBAAAAAElFTkSuQmCC";
 
-  var PATH_JSON = '{"objects": [{"type": "path", "originX": "center", "originY": "center", "left": 268, "top": 266, "width": 51, "height": 49,'+
-                  ' "fill": "rgb(0,0,0)", "overlayFill": null, "stroke": null, "strokeWidth": 1, "scaleX": 1, "scaleY": 1, '+
+  var PATH_JSON = '{"objects": [{"type": "path", "originX": "left", "originY": "top", "left": 268, "top": 266, "width": 51, "height": 49,'+
+                  ' "fill": "rgb(0,0,0)", "stroke": null, "strokeWidth": 1, "scaleX": 1, "scaleY": 1, '+
                   '"angle": 0, "flipX": false, "flipY": false, "opacity": 1, "path": [["M", 18.511, 13.99],'+
                   ' ["c", 0, 0, -2.269, -4.487, -12.643, 4.411], ["c", 0, 0, 4.824, -14.161, 19.222, -9.059],'+
                   ' ["l", 0.379, -2.1], ["c", -0.759, -0.405, -1.375, -1.139, -1.645, -2.117], ["c", -0.531, '+
@@ -19,17 +19,34 @@
                   ' -3.56, 6.891, -7.481, 8.848], ["c", -4.689, 2.336, -9.084, -0.802, -11.277, -2.868], ["l",'+
                   ' -1.948, 3.104], ["l", -1.628, -1.333], ["l", 3.138, -4.689], ["c", 0.025, 0, 9, 1.932, 9, 1.932], '+
                   '["c", 0.877, -9.979, 2.893, -12.905, 4.942, -15.621], ["C", 17.878, 21.775, 18.713, 17.397, 18.511, '+
-                  '13.99], ["z", null]]}], "background": "#ff5555"}';
+                  '13.99], ["z", null]]}], "background": "#ff5555","overlay": "rgba(0,0,0,0.2)"}';
 
-  var PATH_DATALESS_JSON = '{"objects":[{"type":"path","originX":"center","originY":"center","left":200,"top":200,"width":200,"height":200,"fill":"rgb(0,0,0)",'+
-                           '"overlayFill":null,"stroke":null,"strokeWidth":1,"strokeDashArray":null,"strokeLineCap":"butt","strokeLineJoin":"miter","strokeMiterLimit":10,'+
-                           '"scaleX":1,"scaleY":1,"angle":0,"flipX":false,"flipY":false,"opacity":1,"selectable":true,"hasControls":true,"hasBorders":true,"hasRotatingPoint":true,"transparentCorners":true,'+
-                           '"perPixelTargetFind":false,"shadow":null,"visible":true,"clipTo":null,"path":"http://example.com/"}],"background":""}';
+  var PATH_OBJ_JSON = '{"type": "path", "originX": "left", "originY": "top", "left": 268, "top": 266, "width": 51, "height": 49,'+
+                      ' "fill": "rgb(0,0,0)", "stroke": null, "strokeWidth": 1, "scaleX": 1, "scaleY": 1, '+
+                      '"angle": 0, "flipX": false, "flipY": false, "opacity": 1, "path": [["M", 18.511, 13.99],'+
+                      ' ["c", 0, 0, -2.269, -4.487, -12.643, 4.411], ["c", 0, 0, 4.824, -14.161, 19.222, -9.059],'+
+                      ' ["l", 0.379, -2.1], ["c", -0.759, -0.405, -1.375, -1.139, -1.645, -2.117], ["c", -0.531, '+
+                      '-1.864, 0.371, -3.854, 1.999, -4.453], ["c", 0.312, -0.118, 0.633, -0.169, 0.953, -0.169], '+
+                      '["c", 1.299, 0, 2.514, 0.953, 2.936, 2.455], ["c", 0.522, 1.864, -0.372, 3.854, -1.999, '+
+                      '4.453], ["c", -0.229, 0.084, -0.464, 0.127, -0.692, 0.152], ["l", -0.379, 2.37], ["c", '+
+                      '1.146, 0.625, 2.024, 1.569, 2.674, 2.758], ["c", 3.213, 2.514, 8.561, 4.184, 11.774, -8.232],'+
+                      ' ["c", 0, 0, 0.86, 16.059, -12.424, 14.533], ["c", 0.008, 2.859, 0.615, 5.364, -0.076, 8.224],'+
+                      ' ["c", 8.679, 3.146, 15.376, 14.389, 17.897, 18.168], ["l", 2.497, -2.151], ["l", 1.206, 1.839],'+
+                      ' ["l", -3.889, 3.458], ["C", 46.286, 48.503, 31.036, 32.225, 22.72, 35.81], ["c", -1.307, 2.851,'+
+                      ' -3.56, 6.891, -7.481, 8.848], ["c", -4.689, 2.336, -9.084, -0.802, -11.277, -2.868], ["l",'+
+                      ' -1.948, 3.104], ["l", -1.628, -1.333], ["l", 3.138, -4.689], ["c", 0.025, 0, 9, 1.932, 9, 1.932], '+
+                      '["c", 0.877, -9.979, 2.893, -12.905, 4.942, -15.621], ["C", 17.878, 21.775, 18.713, 17.397, 18.511, '+
+                      '13.99], ["z", null]]}';
 
-  var RECT_JSON = '{"objects":[{"type":"rect","originX":"center","originY":"center","left":0,"top":0,"width":10,"height":10,"fill":"rgb(0,0,0)","overlayFill":null,'+
+  var PATH_DATALESS_JSON = '{"objects":[{"type":"path","originX":"left","originY":"top","left":100,"top":100,"width":200,"height":200,"fill":"rgb(0,0,0)",'+
+                           '"stroke":null,"strokeWidth":1,"strokeDashArray":null,"strokeLineCap":"butt","strokeLineJoin":"miter","strokeMiterLimit":10,'+
+                           '"scaleX":1,"scaleY":1,"angle":0,"flipX":false,"flipY":false,"opacity":1,'+
+                           '"shadow":null,"visible":true,"clipTo":null,"backgroundColor":"","fillRule":"nonzero","globalCompositeOperation":"source-over","path":"http://example.com/","pathOffset":{"x":200,"y":200}}],"background":""}';
+
+  var RECT_JSON = '{"objects":[{"type":"rect","originX":"left","originY":"top","left":0,"top":0,"width":10,"height":10,"fill":"rgb(0,0,0)",'+
                   '"stroke":null,"strokeWidth":1,"strokeDashArray":null,"strokeLineCap":"butt","strokeLineJoin":"miter","strokeMiterLimit":10,"scaleX":1,"scaleY":1,"angle":0,"flipX":false,"flipY":false,"opacity":1,'+
-                  '"selectable":true,"hasControls":true,"hasBorders":true,"hasRotatingPoint":true,"transparentCorners":true,"perPixelTargetFind":false,"shadow":null,'+
-                  '"visible":true,"clipTo":null,"rx":0,"ry":0,"x":0,"y":0}],"background":"#ff5555"}';
+                  '"shadow":null,'+
+                  '"visible":true,"clipTo":null,"backgroundColor":"","fillRule":"nonzero","globalCompositeOperation":"source-over","rx":0,"ry":0}],"background":"#ff5555","overlay":"rgba(0,0,0,0.2)"}';
 
   var el = fabric.document.createElement('canvas');
   el.width = 600; el.height = 600;
@@ -51,7 +68,7 @@
       canvas.clear();
       canvas.setActiveGroup(null);
       canvas.backgroundColor = fabric.Canvas.prototype.backgroundColor;
-      canvas.backgroundImage = '';
+      canvas.overlayColor = fabric.Canvas.prototype.overlayColor;
       canvas.calcOffset();
       upperCanvasEl.style.display = 'none';
     }
@@ -83,18 +100,25 @@
 
   test('calcOffset', function() {
     ok(typeof canvas.calcOffset == 'function', 'should respond to `calcOffset`');
-    equal(canvas, canvas.calcOffset());
+    equal(canvas.calcOffset(), canvas, 'should be chainable');
   });
 
   test('add', function() {
-    var rect = makeRect();
+    var rect1 = makeRect(),
+        rect2 = makeRect(),
+        rect3 = makeRect(),
+        rect4 = makeRect();
 
     ok(typeof canvas.add == 'function');
-    ok(canvas === canvas.add(rect), 'should be chainable');
-    equal(canvas.item(0), rect);
+    equal(canvas.add(rect1), canvas, 'should be chainable');
+    strictEqual(canvas.item(0), rect1);
 
-    canvas.add(makeRect(), makeRect(), makeRect());
+    canvas.add(rect2, rect3, rect4);
     equal(canvas.getObjects().length, 4, 'should support multiple arguments');
+
+    strictEqual(canvas.item(1), rect2);
+    strictEqual(canvas.item(2), rect3);
+    strictEqual(canvas.item(3), rect4);
   });
 
   test('insertAt', function() {
@@ -107,10 +131,61 @@
 
     var rect = makeRect();
     canvas.insertAt(rect, 1);
-    equal(canvas.item(1), rect);
+    strictEqual(canvas.item(1), rect);
     canvas.insertAt(rect, 2);
-    equal(canvas.item(2), rect);
-    equal(canvas, canvas.insertAt(rect, 2), 'should be chainable');
+    strictEqual(canvas.item(2), rect);
+    equal(canvas.insertAt(rect, 2), canvas, 'should be chainable');
+  });
+
+  test('remove', function() {
+    var rect1 = makeRect(),
+        rect2 = makeRect(),
+        rect3 = makeRect(),
+        rect4 = makeRect();
+
+    canvas.add(rect1, rect2, rect3, rect4);
+
+    ok(typeof canvas.remove == 'function');
+    equal(canvas.remove(rect1), canvas, 'should be chainable');
+    strictEqual(canvas.item(0), rect2, 'should be second object');
+
+    canvas.remove(rect2, rect3);
+    strictEqual(canvas.item(0), rect4);
+
+    canvas.remove(rect4);
+    equal(canvas.isEmpty(), true, 'canvas should be empty');
+  });
+
+  test('before:selection:cleared', function() {
+    var isFired = false;
+    canvas.on('before:selection:cleared', function() { isFired = true });
+
+    canvas.add(new fabric.Rect());
+    canvas.remove(canvas.item(0));
+
+    equal(isFired, false, 'removing inactive object shouldnt fire "before:selection:cleared"');
+
+    canvas.add(new fabric.Rect());
+    canvas.setActiveObject(canvas.item(0));
+    canvas.remove(canvas.item(0));
+
+    equal(isFired, true, 'removing active object should fire "before:selection:cleared"');
+  });
+
+  test('selection:cleared', function() {
+    var isFired = false;
+    canvas.on('selection:cleared', function() { isFired = true });
+
+    canvas.add(new fabric.Rect());
+    canvas.remove(canvas.item(0));
+
+    equal(isFired, false, 'removing inactive object shouldnt fire "selection:cleared"');
+
+    canvas.add(new fabric.Rect());
+    canvas.setActiveObject(canvas.item(0));
+    canvas.remove(canvas.item(0));
+
+    equal(isFired, true, 'removing active object should fire "selection:cleared"');
   });
 
   test('getContext', function() {
@@ -119,13 +194,13 @@
 
   test('clearContext', function() {
     ok(typeof canvas.clearContext == 'function');
-    equal(canvas, canvas.clearContext(canvas.getContext()), 'chainable');
+    equal(canvas.clearContext(canvas.getContext()), canvas, 'should be chainable');
   });
 
   test('clear', function() {
     ok(typeof canvas.clear == 'function');
 
-    equal(canvas, canvas.clear());
+    equal(canvas.clear(), canvas, 'should be chainable');
     equal(canvas.getObjects().length, 0);
   });
 
@@ -190,7 +265,7 @@
     var rect = makeRect({ left: 102, top: 202 });
     canvas.add(rect);
     equal(canvas.centerObjectH(rect), canvas, 'should be chainable');
-    equal(rect.get('left'), upperCanvasEl.width / 2, 'object\'s "left" property should correspond to canvas element\'s center');
+    equal(rect.getCenterPoint().x, upperCanvasEl.width / 2, 'object\'s "left" property should correspond to canvas element\'s center');
   });
 
   test('centerObjectV', function() {
@@ -198,7 +273,7 @@
     var rect = makeRect({ left: 102, top: 202 });
     canvas.add(rect);
     equal(canvas.centerObjectV(rect), canvas, 'should be chainable');
-    equal(rect.get('top'), upperCanvasEl.height / 2, 'object\'s "top" property should correspond to canvas element\'s center');
+    equal(rect.getCenterPoint().y, upperCanvasEl.height / 2, 'object\'s "top" property should correspond to canvas element\'s center');
   });
 
   test('centerObject', function() {
@@ -207,8 +282,8 @@
     canvas.add(rect);
     equal(canvas.centerObject(rect), canvas, 'should be chainable');
 
-    equal(rect.get('top'), upperCanvasEl.height / 2, 'object\'s "top" property should correspond to canvas element\'s center');
-    equal(rect.get('left'), upperCanvasEl.height / 2, 'object\'s "left" property should correspond to canvas element\'s center');
+    equal(rect.getCenterPoint().y, upperCanvasEl.height / 2, 'object\'s "top" property should correspond to canvas element\'s center');
+    equal(rect.getCenterPoint().x, upperCanvasEl.width / 2, 'object\'s "left" property should correspond to canvas element\'s center');
   });
 
   test('straightenObject', function() {
@@ -231,17 +306,10 @@
     ok(typeof canvas.toJSON == 'function');
     equal(JSON.stringify(canvas.toJSON()), EMPTY_JSON);
     canvas.backgroundColor = '#ff5555';
-    equal(JSON.stringify(canvas.toJSON()), '{"objects":[],"background":"#ff5555"}', '`background` value should be reflected in json');
+    canvas.overlayColor = 'rgba(0,0,0,0.2)';
+    equal(JSON.stringify(canvas.toJSON()), '{"objects":[],"background":"#ff5555","overlay":"rgba(0,0,0,0.2)"}', '`background` and `overlayColor` value should be reflected in json');
     canvas.add(makeRect());
     deepEqual(JSON.stringify(canvas.toJSON()), RECT_JSON);
-  });
-
-  test('toDatalessJSON', function() {
-    var path = new fabric.Path('M 100 100 L 300 100 L 200 300 z', {
-      sourcePath: 'http://example.com/'
-    });
-    canvas.add(path);
-    equal(JSON.stringify(canvas.toDatalessJSON()), PATH_DATALESS_JSON);
   });
 
   test('toJSON with active group', function() {
@@ -254,6 +322,14 @@
     var jsonWithActiveGroup = JSON.stringify(canvas);
 
     equal(json, jsonWithActiveGroup);
+  });
+
+  test('toDatalessJSON', function() {
+    var path = new fabric.Path('M 100 100 L 300 100 L 200 300 z', {
+      sourcePath: 'http://example.com/'
+    });
+    canvas.add(path);
+    equal(JSON.stringify(canvas.toDatalessJSON()), PATH_DATALESS_JSON);
   });
 
   test('toObject', function() {
@@ -301,11 +377,12 @@
       ok(!canvas.isEmpty(), 'canvas is not empty');
       equal(obj.type, 'path', 'first object is a path object');
       equal(canvas.backgroundColor, '#ff5555', 'backgroundColor is populated properly');
+      equal(canvas.overlayColor, 'rgba(0,0,0,0.2)', 'overlayColor is populated properly');
 
       equal(obj.get('left'), 268);
       equal(obj.get('top'), 266);
-      equal(obj.get('width'), 51);
-      equal(obj.get('height'), 49);
+      equal(obj.get('width'), 49.803999999999995);
+      equal(obj.get('height'), 48.027);
       equal(obj.get('fill'), 'rgb(0,0,0)');
       equal(obj.get('stroke'), null);
       equal(obj.get('strokeWidth'), 1);
@@ -328,11 +405,12 @@
       ok(!canvas.isEmpty(), 'canvas is not empty');
       equal(obj.type, 'path', 'first object is a path object');
       equal(canvas.backgroundColor, '#ff5555', 'backgroundColor is populated properly');
+      equal(canvas.overlayColor, 'rgba(0,0,0,0.2)', 'overlayColor is populated properly');
 
       equal(obj.get('left'), 268);
       equal(obj.get('top'), 266);
-      equal(obj.get('width'), 51);
-      equal(obj.get('height'), 49);
+      equal(obj.get('width'), 49.803999999999995);
+      equal(obj.get('height'), 48.027);
       equal(obj.get('fill'), 'rgb(0,0,0)');
       equal(obj.get('stroke'), null);
       equal(obj.get('strokeWidth'), 1);
@@ -346,21 +424,140 @@
     });
   });
 
+  test('loadFromJSON with reviver function', function() {
+    ok(typeof canvas.loadFromJSON == 'function');
+
+    function reviver(obj, instance) {
+      deepEqual(obj, JSON.parse(PATH_OBJ_JSON));
+
+      if (instance.type === 'path') {
+        instance.customID = 'fabric_1';
+      }
+    }
+
+    canvas.loadFromJSON(JSON.parse(PATH_JSON), function(){
+      var obj = canvas.item(0);
+
+      ok(!canvas.isEmpty(), 'canvas is not empty');
+      equal(obj.type, 'path', 'first object is a path object');
+      equal(canvas.backgroundColor, '#ff5555', 'backgroundColor is populated properly');
+      equal(canvas.overlayColor, 'rgba(0,0,0,0.2)', 'overlayColor is populated properly');
+
+      equal(obj.get('left'), 268);
+      equal(obj.get('top'), 266);
+      equal(obj.get('width'), 49.803999999999995);
+      equal(obj.get('height'), 48.027);
+      equal(obj.get('fill'), 'rgb(0,0,0)');
+      equal(obj.get('stroke'), null);
+      equal(obj.get('strokeWidth'), 1);
+      equal(obj.get('scaleX'), 1);
+      equal(obj.get('scaleY'), 1);
+      equal(obj.get('angle'), 0);
+      equal(obj.get('flipX'), false);
+      equal(obj.get('flipY'), false);
+      equal(obj.get('opacity'), 1);
+      equal(obj.get('customID'), 'fabric_1');
+      ok(obj.get('path').length > 0);
+    }, reviver);
+  });
+
   asyncTest('loadFromJSON with no objects', function() {
-    var c1 = new fabric.Canvas('c1', { backgroundColor: 'green' }),
-        c2 = new fabric.Canvas('c2', { backgroundColor: 'red' });
+    var c1 = new fabric.Canvas('c1', { backgroundColor: 'green', overlayColor: 'yellow' }),
+        c2 = new fabric.Canvas('c2', { backgroundColor: 'red', overlayColor: 'orange' });
 
     var json = c1.toJSON();
     var fired = false;
     c2.loadFromJSON(json, function() {
       fired = true;
-    });
 
-    setTimeout(function() {
       ok(fired, 'Callback should be fired even if no objects');
       equal(c2.backgroundColor, 'green', 'Color should be set properly');
+      equal(c2.overlayColor, 'yellow', 'Color should be set properly');
       start();
-    }, 500);
+    });
+  });
+
+  asyncTest('loadFromJSON without "objects" property', function() {
+    var c1 = new fabric.Canvas('c1', { backgroundColor: 'green', overlayColor: 'yellow' }),
+        c2 = new fabric.Canvas('c2', { backgroundColor: 'red', overlayColor: 'orange' });
+
+    var json = c1.toJSON();
+    var fired = false;
+
+    delete json.objects;
+
+    c2.loadFromJSON(json, function() {
+      fired = true;
+
+      ok(fired, 'Callback should be fired even if no "objects" property exists');
+      equal(c2.backgroundColor, 'green', 'Color should be set properly');
+      equal(c2.overlayColor, 'yellow', 'Color should be set properly');
+      start();
+    });
+  });
+
+  asyncTest('loadFromJSON with empty fabric.Group', function() {
+    var c1 = new fabric.Canvas('c1'),
+        c2 = new fabric.Canvas('c2'),
+        group = new fabric.Group();
+
+    c1.add(group);
+    ok(!c1.isEmpty(), 'canvas is not empty');
+
+    var json = c1.toJSON();
+    var fired = false;
+    c2.loadFromJSON(json, function() {
+      fired = true;
+
+      ok(fired, 'Callback should be fired even if empty fabric.Group exists');
+      start();
+    });
+  });
+
+  asyncTest('loadFromJSON with async content', function() {
+    var group = new fabric.Group([
+      new fabric.Rect({ width: 10, height: 20 }),
+      new fabric.Circle({ radius: 10 })
+    ]);
+    var rect = new fabric.Rect({ width: 20, height: 10 });
+    var circle = new fabric.Circle({ radius: 25 });
+
+    canvas.add(group, rect, circle);
+    var json = JSON.stringify(canvas);
+    canvas.clear();
+
+    equal(0, canvas.getObjects().length);
+
+    canvas.loadFromJSON(json, function() {
+      equal(3, canvas.getObjects().length);
+
+      start();
+    });
+  });
+
+  asyncTest('loadFromDatalessJSON with async content', function() {
+
+    var circ1 = new fabric.Circle({ radius: 30, fill: '#55f', top: 0, left: 0 });
+    var circ2 = new fabric.Circle({ radius: 30, fill: '#f55', top: 50, left: 50 });
+    var circ3 = new fabric.Circle({ radius: 30, fill: '#5f5', top: 50, left: 50 });
+
+    var arr = [circ1, circ2];
+    var group = new fabric.Group(arr, { top: 150, left: 150 });
+
+    canvas.add(circ3);
+    canvas.add(group);
+    canvas.renderAll();
+
+    canvas.deactivateAll();
+    var json = JSON.stringify( canvas.toDatalessJSON() );
+    canvas.clear();
+    canvas.loadFromDatalessJSON(json, function() {
+
+      equal(2, canvas.getObjects().length);
+      equal('group', canvas.getObjects()[1].type);
+
+      start();
+    });
   });
 
   // asyncTest('loadFromJSON with backgroundImage', function() {
@@ -381,14 +578,6 @@
   //   }, 1000);
   // });
 
-  test('remove', function() {
-    ok(typeof canvas.remove == 'function');
-    var rect1 = makeRect(),
-        rect2 = makeRect();
-    canvas.add(rect1, rect2);
-    equal(canvas.remove(rect1), rect1, 'should return removed object');
-    equal(canvas.item(0), rect2, 'only second object should be left');
-  });
 
   test('sendToBack', function() {
     ok(typeof canvas.sendToBack == 'function');
@@ -560,7 +749,7 @@
       makeRect({ left: 20, top: 20 })
     ]);
 
-    equal(canvas.setActiveGroup(group), canvas, 'chainable');
+    equal(canvas.setActiveGroup(group), canvas, 'should be chainable');
     equal(canvas.getActiveGroup(), group);
   });
 
@@ -584,7 +773,7 @@
     ok(typeof canvas.discardActiveGroup == 'function');
     var group = new fabric.Group([makeRect(), makeRect()]);
     canvas.setActiveGroup(group);
-    equal(canvas.discardActiveGroup(), canvas, 'chainable');
+    equal(canvas.discardActiveGroup(), canvas, 'should be chainable');
     equal(canvas.getActiveGroup(), null, 'removing active group sets it to null');
   });
 
@@ -617,7 +806,6 @@
       selectionCleared: false
     };
     var target;
-
 
     canvas.on('selection:cleared', function(){
       eventsFired.selectionCleared = true;
@@ -744,25 +932,66 @@
     });
   });
 
-  test('getSetWidth', function() {
+ test('getSetWidth', function() {
     ok(typeof canvas.getWidth == 'function');
-
     equal(canvas.getWidth(), 600);
-    equal(canvas.setWidth(444), canvas, 'chainable');
+    equal(canvas.setWidth(444), canvas, 'should be chainable');
     equal(canvas.getWidth(), 444);
+    equal(canvas.lowerCanvasEl.style.width, 444 + 'px');
   });
 
   test('getSetHeight', function() {
     ok(typeof canvas.getHeight == 'function');
     equal(canvas.getHeight(), 600);
-    equal(canvas.setHeight(765), canvas, 'chainable');
+    equal(canvas.setHeight(765), canvas, 'should be chainable');
     equal(canvas.getHeight(), 765);
+    equal(canvas.lowerCanvasEl.style.height, 765 + 'px');
+  });
+
+  test('setWidth css only', function() {
+    canvas.setWidth(123);
+    canvas.setWidth('100%', { cssOnly: true });
+
+    equal(canvas.lowerCanvasEl.style.width, '100%', 'Should be as the css only value');
+    equal(canvas.upperCanvasEl.style.width, '100%', 'Should be as the css only value');
+    equal(canvas.wrapperEl.style.width, '100%', 'Should be as the css only value');
+    equal(canvas.getWidth(), 123, 'Should be as the none css only value');
+  });
+
+  test('setHeight css only', function() {
+    canvas.setHeight(123);
+    canvas.setHeight('100%', { cssOnly: true });
+
+    equal(canvas.lowerCanvasEl.style.height, '100%', 'Should be as the css only value');
+    equal(canvas.upperCanvasEl.style.height, '100%', 'Should be as the css only value');
+    equal(canvas.wrapperEl.style.height, '100%', 'Should be as the css only value');
+    equal(canvas.getWidth(), 123, 'Should be as the none css only value');
+  });
+
+  test('setWidth backstore only', function() {
+    canvas.setWidth(123);
+    canvas.setWidth(500, { backstoreOnly: true });
+
+    equal(canvas.lowerCanvasEl.style.width, 123 + 'px', 'Should be as none backstore only value + "px"');
+    equal(canvas.upperCanvasEl.style.width, 123 + 'px', 'Should be as none backstore only value + "px"');
+    equal(canvas.wrapperEl.style.width, 123 + 'px', 'Should be as none backstore only value + "px"');
+    equal(canvas.getWidth(), 500, 'Should be as the backstore only value');
+  });
+
+  test('setHeight backstore only', function() {
+    canvas.setHeight(123);
+    canvas.setHeight(500, { backstoreOnly: true });
+
+    equal(canvas.lowerCanvasEl.style.height, 123 + 'px', 'Should be as none backstore only value + "px"');
+    equal(canvas.upperCanvasEl.style.height, 123 + 'px', 'Should be as none backstore only value + "px"');
+    equal(canvas.wrapperEl.style.height, 123 + 'px', 'Should be as none backstore only value + "px"');
+    equal(canvas.getHeight(), 500, 'Should be as the backstore only value');
   });
 
   test('containsPoint', function() {
     ok(typeof canvas.containsPoint == 'function');
 
-    var rect = new fabric.Rect({ left: 100, top: 100, width: 50, height: 50 });
+    var rect = new fabric.Rect({ left: 75, top: 75, width: 50, height: 50 });
     canvas.add(rect);
 
     var canvasEl = canvas.getElement(),
@@ -783,59 +1012,9 @@
     };
     ok(!canvas.containsPoint(eventStub, rect), 'point at (200, 200) should NOT be within area (75, 75, 125, 125)');
 
-    rect.set('left', 200).set('top', 200).setCoords();
-    ok(canvas.containsPoint(eventStub, rect), 'point at (200, 200) should be within area (175, 175, 225, 225)');
+    rect.set('left', 175).set('top', 175).setCoords();
+    ok(canvas.containsPoint(eventStub, rect), 'on rect at (200, 200) should be within area (175, 175, 225, 225)');
   });
-
-  test('toGrayscale', function() {
-    ok(typeof fabric.Canvas.toGrayscale == 'function');
-
-    if (!fabric.Canvas.supports('getImageData')) {
-      console.log('getImageData is not supported by this environment. Some of the tests can not be run.');
-      return;
-    }
-
-    var canvasEl = fabric.document.createElement('canvas'),
-        context = canvasEl.getContext('2d');
-
-    canvasEl.width = canvasEl.height = 10;
-
-    context.fillStyle = 'rgb(255,0,0)'; // red
-    context.fillRect(0, 0, 10, 10);
-
-    var imageData = context.getImageData(0, 0, 10, 10),
-        data = imageData.data,
-        firstPixelData = [data[0], data[1], data[2], data[3]];
-
-    deepEqual([255, 0, 0, 255], firstPixelData);
-
-    fabric.Canvas.toGrayscale(canvasEl);
-
-    imageData = context.getImageData(0, 0, 10, 10);
-    data = imageData.data;
-    firstPixelData = [data[0], data[1], data[2], data[3]];
-
-    deepEqual([85, 85, 85, 255], firstPixelData);
-  });
-
-  // asyncTest('resizeImageToFit', function() {
-  //   ok(typeof canvas._resizeImageToFit == 'function');
-
-  //   var imgEl = fabric.util.makeElement('img', { src: '../fixtures/very_large_image.jpg' }),
-  //       ORIGINAL_WIDTH = 3888,
-  //       ORIGINAL_HEIGHT = 2592;
-
-  //   setTimeout(function() {
-  //     equal(imgEl.width, ORIGINAL_WIDTH);
-  //     equal(imgEl.height, ORIGINAL_HEIGHT);
-
-  //     canvas._resizeImageToFit(imgEl);
-
-  //     ok(imgEl.width < ORIGINAL_WIDTH);
-
-  //     start();
-  //   }, 2000);
-  // });
 
   asyncTest('fxRemove', function() {
     ok(typeof canvas.fxRemove == 'function');
@@ -885,68 +1064,6 @@
   //   }, 1000);
   // });
 
-  test('selection:cleared', function() {
-    var isFired = false;
-    canvas.on('selection:cleared', function() { isFired = true });
-
-    canvas.add(new fabric.Rect());
-    canvas.remove(canvas.item(0));
-
-    equal(isFired, false, 'removing inactive object shouldnt fire "selection:cleared"');
-
-    canvas.add(new fabric.Rect());
-    canvas.setActiveObject(canvas.item(0));
-    canvas.remove(canvas.item(0));
-
-    equal(isFired, true, 'removing active object should fire "selection:cleared"');
-  });
-
-  asyncTest('loadFromJSON with async content', function() {
-    var group = new fabric.Group([
-      new fabric.Rect({ width: 10, height: 20 }),
-      new fabric.Circle({ radius: 10 })
-    ]);
-    var rect = new fabric.Rect({ width: 20, height: 10 });
-    var circle = new fabric.Circle({ radius: 25 });
-
-    canvas.add(group, rect, circle);
-    var json = JSON.stringify(canvas);
-    canvas.clear();
-
-    equal(0, canvas.getObjects().length);
-
-    canvas.loadFromJSON(json, function() {
-      equal(3, canvas.getObjects().length);
-
-      start();
-    });
-  });
-
-  asyncTest('loadFromDatalessJSON with async content', function() {
-
-    var circ1 = new fabric.Circle({ radius: 30, fill: '#55f', top: 0, left: 0 });
-    var circ2 = new fabric.Circle({ radius: 30, fill: '#f55', top: 50, left: 50 });
-    var circ3 = new fabric.Circle({ radius: 30, fill: '#5f5', top: 50, left: 50 });
-
-    var arr = [circ1, circ2];
-    var group = new fabric.Group(arr, { top: 150, left: 150 });
-
-    canvas.add(circ3);
-    canvas.add(group);
-    canvas.renderAll();
-
-    canvas.deactivateAll();
-    var json = JSON.stringify( canvas.toDatalessJSON() );
-    canvas.clear();
-    canvas.loadFromDatalessJSON(json, function() {
-
-      equal(2, canvas.getObjects().length);
-      equal('group', canvas.getObjects()[1].type);
-
-      start();
-    });
-  });
-
   test('clipTo', function() {
     canvas.clipTo = function(ctx) {
       ctx.arc(0, 0, 10, 0, Math.PI * 2, false);
@@ -962,6 +1079,18 @@
     delete canvas.clipTo;
 
     ok(typeof error == 'undefined', 'renderAll with clipTo does not throw');
+  });
+
+  test('canvas inheritance', function() {
+
+    // this should not error out
+    var InheritedCanvasClass = fabric.util.createClass(fabric.Canvas, {
+      initialize: function() {
+
+      }
+    });
+
+    ok(typeof InheritedCanvasClass === 'function');
   });
 
 })();

@@ -1,6 +1,6 @@
 (function(global) {
 
-  "use strict";
+  'use strict';
 
   /* Adaptation of work of Kevin Lindsey (kevin@kevlindev.com) */
 
@@ -16,6 +16,7 @@
   /**
    * Point class
    * @class fabric.Point
+   * @memberOf fabric
    * @constructor
    * @param {Number} x
    * @param {Number} y
@@ -62,7 +63,7 @@
     /**
      * Adds value to this point
      * @param {Number} scalar
-     * @param {fabric.Point} thisArg
+     * @return {fabric.Point} thisArg
      */
     scalarAddEquals: function (scalar) {
       this.x += scalar;
@@ -249,13 +250,13 @@
      * @return {String}
      */
     toString: function () {
-      return this.x + "," + this.y;
+      return this.x + ',' + this.y;
     },
 
     /**
      * Sets x/y of this point
      * @param {Number} x
-     * @return {Number} y
+     * @param {Number} y
      */
     setXY: function (x, y) {
       this.x = x;

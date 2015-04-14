@@ -1,38 +1,44 @@
 (function(){
 
   var REFERENCE_PATH_GROUP_OBJECT = {
-    'type':               'path-group',
-    'originX':            'center',
-    'originY':            'center',
-    'left':               0,
-    'top':                0,
-    'width':              0,
-    'height':             0,
-    'fill':               '',
-    'overlayFill':        null,
-    'stroke':             null,
-    'strokeWidth':        1,
-    'strokeDashArray':    null,
-    'strokeLineCap':      'butt',
-    'strokeLineJoin':     'miter',
-    'strokeMiterLimit':   10,
-    'scaleX':             1,
-    'scaleY':             1,
-    'angle':              0,
-    'flipX':              false,
-    'flipY':              false,
-    'opacity':            1,
-    'selectable':         true,
-    'hasControls':        true,
-    'hasBorders':         true,
-    'hasRotatingPoint':   true,
-    'transparentCorners': true,
-    'perPixelTargetFind': false,
-    'shadow':             null,
-    'visible':            true,
-    'clipTo':             null,
-    'paths':              getPathObjects()
+    'type':                     'path-group',
+    'originX':                  'left',
+    'originY':                  'top',
+    'left':                     0,
+    'top':                      0,
+    'width':                    0,
+    'height':                   0,
+    'fill':                     '',
+    'stroke':                   null,
+    'strokeWidth':              1,
+    'strokeDashArray':          null,
+    'strokeLineCap':            'butt',
+    'strokeLineJoin':           'miter',
+    'strokeMiterLimit':         10,
+    'scaleX':                   1,
+    'scaleY':                   1,
+    'angle':                    0,
+    'flipX':                    false,
+    'flipY':                    false,
+    'opacity':                  1,
+    'shadow':                   null,
+    'visible':                  true,
+    'clipTo':                   null,
+    'backgroundColor':          '',
+    'fillRule':                 'nonzero',
+    'globalCompositeOperation': 'source-over',    
+    'paths':                    getPathObjects()
   };
+
+  var REFERENCE_PATH_GROUP_SVG = '<g style="stroke: none; stroke-width: 1; stroke-dasharray: ; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;" transform="translate(0 0)" >\n' +
+    '<path d="M 100 100 L 300 100 L 200 300 z" style="stroke: blue; stroke-width: 3; stroke-dasharray: ; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,0,0); fill-rule: nonzero; opacity: 1;" transform="" stroke-linecap="round" />\n' +
+    '<path d="M 200 200 L 100 200 L 400 50 z" style="stroke: blue; stroke-width: 3; stroke-dasharray: ; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,0,0); fill-rule: nonzero; opacity: 1;" transform="" stroke-linecap="round" />\n' +
+    '</g>\n';
+
+  var REFERENCE_PATH_GROUP_SVG_WITH_MATRIX = '<g style="stroke: none; stroke-width: 1; stroke-dasharray: ; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: none; fill-rule: nonzero; opacity: 1;" transform=" matrix(1 2 3 4 5 6) translate(0 0)" >\n' +
+    '<path d="M 100 100 L 300 100 L 200 300 z" style="stroke: blue; stroke-width: 3; stroke-dasharray: ; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,0,0); fill-rule: nonzero; opacity: 1;" transform="" stroke-linecap="round" />\n' +
+    '<path d="M 200 200 L 100 200 L 400 50 z" style="stroke: blue; stroke-width: 3; stroke-dasharray: ; stroke-linecap: butt; stroke-linejoin: miter; stroke-miterlimit: 10; fill: rgb(255,0,0); fill-rule: nonzero; opacity: 1;" transform="" stroke-linecap="round" />\n' +
+    '</g>\n';
 
   function getPathElement(path) {
     var el = fabric.document.createElement('path');
@@ -43,51 +49,76 @@
     return el;
   }
 
-  function getPathObject(path) {
-    return fabric.Path.fromElement(getPathElement(path));
+  function getPathObject(path, callback) {
+    fabric.Path.fromElement(getPathElement(path), callback);
   }
 
-  function getPathObjects() {
-    return [getPathObject("M 100 100 L 300 100 L 200 300 z"),
-            getPathObject("M 200 200 L 100 200 L 400 50 z")];
+  function getPathObjects(callback) {
+    function onLoaded() {
+      if (++numLoadedObjects === numTotalObjects) {
+        if (callback) {
+          callback(objects);
+        }
+      }
+    }
+
+    var objects = [ ],
+        paths = ["M 100 100 L 300 100 L 200 300 z", "M 200 200 L 100 200 L 400 50 z"],
+        numLoadedObjects = 0,
+        numTotalObjects = paths.length;
+
+    paths.forEach(function (o, index) {
+      getPathObject(o, function(o) {
+        objects[index] = o;
+        onLoaded();
+      });
+    });
   }
 
-  function getPathGroupObject() {
-    return new fabric.PathGroup(getPathObjects());
+  function getPathGroupObject(callback) {
+    getPathObjects(function(objects) {
+      callback(new fabric.PathGroup(objects));
+    });
   }
 
   QUnit.module('fabric.PathGroup');
 
-  test('constructor', function() {
+  asyncTest('constructor', function() {
     ok(fabric.PathGroup);
-    var pathGroup = getPathGroupObject();
+    getPathGroupObject(function(pathGroup) {
 
-    ok(pathGroup instanceof fabric.PathGroup);
-    ok(pathGroup instanceof fabric.Object);
-    //this.assertHasMixin(Enumerable, pathGroup);
+      ok(pathGroup instanceof fabric.PathGroup);
+      ok(pathGroup instanceof fabric.Object);
+      //this.assertHasMixin(Enumerable, pathGroup);
 
-    equal(pathGroup.get('type'), 'path-group');
+      equal(pathGroup.get('type'), 'path-group');
+      start();
+    });
   });
 
-  test('getObjects', function() {
-    var paths = getPathObjects();
-    var pathGroup = new fabric.PathGroup(paths);
-    ok(typeof pathGroup.getObjects == 'function');
+  asyncTest('getObjects', function() {
+    getPathObjects(function(paths) {
+      var pathGroup = new fabric.PathGroup(paths);
+      ok(typeof pathGroup.getObjects == 'function');
 
-    // nulling group to avoid circular reference (qUnit goes into inifinite loop)
-    paths[0].group = null;
-    paths[1].group = null;
+      // nulling group to avoid circular reference (qUnit goes into inifinite loop)
+      paths[0].group = null;
+      paths[1].group = null;
 
-    deepEqual(pathGroup.getObjects(), paths);
+      deepEqual(pathGroup.getObjects(), paths);
+      start();
+    });
   });
 
-  test('toObject', function() {
-    var pathGroup = getPathGroupObject();
-    ok(typeof pathGroup.toObject == 'function');
-    var object = pathGroup.toObject();
+  asyncTest('toObject', function() {
+    getPathGroupObject(function(pathGroup) {
+      ok(typeof pathGroup.toObject == 'function');
+      var object = pathGroup.toObject();
+      start();
+    });
   });
 
-  test('complexity', function() {
+  asyncTest('complexity', function() {
     function sum(objects) {
       var i = objects.length, total = 0;
       while (i--) {
@@ -95,100 +126,135 @@
       }
       return total;
     }
-    var pathGroup = getPathGroupObject();
+    getPathGroupObject(function(pathGroup) {
 
-    ok(typeof pathGroup.complexity == 'function');
+      ok(typeof pathGroup.complexity == 'function');
 
-    var objectsTotalComplexity = pathGroup.getObjects().reduce(function(total, current) {
-      total += current.complexity();
-      return total;
-    }, 0);
+      var objectsTotalComplexity = pathGroup.getObjects().reduce(function(total, current) {
+        total += current.complexity();
+        return total;
+      }, 0);
 
-    equal(pathGroup.complexity(), objectsTotalComplexity);
-  });
-
-  test('toDatalessObject', function() {
-    var pathGroup = getPathGroupObject();
-    ok(typeof pathGroup.toDatalessObject == 'function');
-
-    pathGroup.setSourcePath('http://example.com/');
-    var expectedObject = fabric.util.object.extend(fabric.util.object.clone(REFERENCE_PATH_GROUP_OBJECT), {
-      'paths': 'http://example.com/',
-      'sourcePath': 'http://example.com/'
+      equal(pathGroup.complexity(), objectsTotalComplexity);
+      start();
     });
-    deepEqual(pathGroup.toDatalessObject(), expectedObject);
   });
 
-  test('toString', function() {
-    var pathGroup = getPathGroupObject();
-    ok(typeof pathGroup.toString == 'function');
-    equal(pathGroup.toString(), '#<fabric.PathGroup (8): { top: 0, left: 0 }>');
+  asyncTest('toDatalessObject', function() {
+    getPathGroupObject(function(pathGroup) {
+      ok(typeof pathGroup.toDatalessObject == 'function');
+
+      pathGroup.setSourcePath('http://example.com/');
+      var expectedObject = fabric.util.object.extend(fabric.util.object.clone(REFERENCE_PATH_GROUP_OBJECT), {
+        'paths': 'http://example.com/',
+        'sourcePath': 'http://example.com/'
+      });
+      deepEqual(pathGroup.toDatalessObject(), expectedObject);
+      start();
+    });
   });
 
-  test('isSameColor', function() {
-    var pathGroup = getPathGroupObject();
+  asyncTest('fromObject', function() {
+    getPathGroupObject(function(pathGroup) {
 
-    ok(typeof pathGroup.isSameColor == 'function');
-    equal(pathGroup.isSameColor(), true);
+      ok(typeof fabric.PathGroup.fromObject == 'function');
+      var pathGroupObject = pathGroup.toObject();
 
-    pathGroup.getObjects()[0].set('fill', 'black');
-    equal(pathGroup.isSameColor(), false);
+      fabric.PathGroup.fromObject(pathGroupObject, function(newPathGroupFromObject) {
+
+        var objectFromOldPathGroup = pathGroup.toObject();
+        var objectFromNewPathGroup = newPathGroupFromObject.toObject();
+
+        ok(newPathGroupFromObject instanceof fabric.PathGroup);
+
+        deepEqual(objectFromNewPathGroup, objectFromOldPathGroup);
+
+        start();
+      });
+    });
   });
 
-  test('set', function() {
+  asyncTest('toString', function() {
+    getPathGroupObject(function(pathGroup) {
+      ok(typeof pathGroup.toString == 'function');
+      equal(pathGroup.toString(), '#<fabric.PathGroup (8): { top: 0, left: 0 }>');
+      start();
+    });
+  });
+
+  asyncTest('isSameColor', function() {
+    getPathGroupObject(function(pathGroup) {
+
+      ok(typeof pathGroup.isSameColor == 'function');
+      equal(pathGroup.isSameColor(), true);
+
+      pathGroup.getObjects()[0].set('fill', 'black');
+      equal(pathGroup.isSameColor(), false);
+
+      // case
+      pathGroup.getObjects()[0].set('fill', '#ff5555');
+      pathGroup.getObjects()[1].set('fill', '#FF5555');
+      equal(pathGroup.isSameColor(), true);
+
+      start();
+    });
+  });
+
+  asyncTest('set', function() {
     var fillValue = 'rgb(100,200,100)';
-    var pathGroup = getPathGroupObject();
+    getPathGroupObject(function(pathGroup) {
 
-    pathGroup.getObjects()[0].group = null;
-    pathGroup.getObjects()[1].group = null;
+      pathGroup.getObjects()[0].group = null;
+      pathGroup.getObjects()[1].group = null;
 
-    ok(typeof pathGroup.set == 'function');
-    equal(pathGroup.set('fill', fillValue), pathGroup, 'should be chainable');
+      ok(typeof pathGroup.set == 'function');
+      equal(pathGroup.set('fill', fillValue), pathGroup, 'should be chainable');
 
-    pathGroup.getObjects().forEach(function(path) {
-      equal(path.get('fill'), fillValue);
-    }, this);
+      pathGroup.getObjects().forEach(function(path) {
+        equal(path.get('fill'), fillValue);
+      }, this);
 
-    equal(pathGroup.get('fill'), fillValue);
+      equal(pathGroup.get('fill'), fillValue);
 
-    // set different color to one of the paths
-    pathGroup.getObjects()[1].set('fill', 'black');
-    pathGroup.set('fill', 'rgb(255,255,255)');
+      // set different color to one of the paths
+      pathGroup.getObjects()[1].set('fill', 'black');
+      pathGroup.set('fill', 'rgb(255,255,255)');
 
-    equal(pathGroup.getObjects()[0].get('fill'), 'rgb(100,200,100)',
-      'when paths are of different fill, setting fill of a group should not change them');
+      equal(pathGroup.getObjects()[0].get('fill'), 'rgb(100,200,100)',
+        'when paths are of different fill, setting fill of a group should not change them');
 
-    pathGroup.getObjects()[1].set('fill', 'red');
+      pathGroup.getObjects()[1].set('fill', 'red');
 
-    pathGroup.set('left', 1234);
-    ok(pathGroup.getObjects()[0].get('left') !== 1234);
-    equal(pathGroup.get('left'), 1234);
+      pathGroup.set('left', 1234);
+      ok(pathGroup.getObjects()[0].get('left') !== 1234);
+      equal(pathGroup.get('left'), 1234);
+      start();
+    });
+  });
+  
+  asyncTest('toSVG', function() {
+    ok(fabric.PathGroup);
+    getPathGroupObject(function(pathGroup) {
+      ok(typeof pathGroup.toSVG == 'function');
+      equal(pathGroup.toSVG(), REFERENCE_PATH_GROUP_SVG);
+      pathGroup.transformMatrix = [1, 2, 3, 4, 5, 6];
+      equal(pathGroup.toSVG(), REFERENCE_PATH_GROUP_SVG_WITH_MATRIX);
+      start();
+    });
   });
 
-  test('grayscale', function() {
-
-    var pathGroup = getPathGroupObject();
-
-    pathGroup.getObjects()[0].group = null;
-    pathGroup.getObjects()[1].group = null;
-
-    ok(typeof pathGroup.toGrayscale == 'function');
-    equal(pathGroup.toGrayscale(), pathGroup, 'should be chainable');
-    var firstObject = pathGroup.getObjects()[0],
-        secondObject = pathGroup.getObjects()[1];
-
-    firstObject.set('overlayFill', null);
-    secondObject.set('overlayFill', null);
-
-    firstObject.set('fill', 'rgb(200,0,0)');
-    secondObject.set('fill', '0000FF');
-
-    pathGroup.toGrayscale();
-
-    equal(firstObject.get('overlayFill'), 'rgb(60,60,60)');
-    equal(secondObject.get('overlayFill'), 'rgb(28,28,28)');
-
-    equal(firstObject.get('fill'), 'rgb(200,0,0)', 'toGrayscale should not change original fill value');
-    equal(new fabric.Color(secondObject.get('fill')).toRgb(), 'rgb(0,0,255)', 'toGrayscale should not change original fill value');
-  });
+  asyncTest('toSVGCenterOrigin', function() {
+    ok(fabric.PathGroup);
+    getPathGroupObject(function(pathGroup) {
+      ok(typeof pathGroup.toSVG == 'function');
+      pathGroup.originX = 'center';
+      pathGroup.originY = 'center';
+      pathGroup.width = 700;
+      pathGroup.height = 600;
+      pathGroup.left = 350;
+      pathGroup.top = 300;
+      equal(pathGroup.toSVG(), REFERENCE_PATH_GROUP_SVG);
+      start();
+    });
+  });  
 })();
