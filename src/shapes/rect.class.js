@@ -1,6 +1,6 @@
 (function(global) {
 
-  "use strict";
+  'use strict';
 
   var fabric = global.fabric || (global.fabric = { }),
       extend = fabric.util.object.extend;
@@ -10,13 +10,24 @@
     return;
   }
 
+  var stateProperties = fabric.Object.prototype.stateProperties.concat();
+  stateProperties.push('rx', 'ry', 'x', 'y');
+
   /**
    * Rectangle class
    * @class fabric.Rect
    * @extends fabric.Object
    * @return {fabric.Rect} thisArg
+   * @see {@link fabric.Rect#initialize} for constructor definition
    */
   fabric.Rect = fabric.util.createClass(fabric.Object, /** @lends fabric.Rect.prototype */ {
+
+    /**
+     * List of properties to consider when checking if state of an object is changed ({@link fabric.Object#hasStateChanged})
+     * as well as for history (undo/redo) purposes
+     * @type Array
+     */
+    stateProperties: stateProperties,
 
     /**
      * Type of an object
@@ -53,21 +64,9 @@
     initialize: function(options) {
       options = options || { };
 
-      this._initStateProperties();
       this.callSuper('initialize', options);
       this._initRxRy();
 
-      this.x = options.x || 0;
-      this.y = options.y || 0;
-    },
-
-    /**
-     * Creates `stateProperties` list on an instance, and adds `fabric.Rect` -specific ones to it
-     * (such as "rx", "ry", etc.)
-     * @private
-     */
-    _initStateProperties: function() {
-      this.stateProperties = this.stateProperties.concat(['rx', 'ry']);
     },
 
     /**
@@ -85,42 +84,41 @@
 
     /**
      * @private
-     * @param ctx {CanvasRenderingContext2D} context to render on
+     * @param {CanvasRenderingContext2D} ctx Context to render on
      */
-    _render: function(ctx) {
-      var rx = this.rx || 0,
-          ry = this.ry || 0,
-          x = -this.width / 2,
-          y = -this.height / 2,
+    _render: function(ctx, noTransform) {
+
+      // optimize 1x1 case (used in spray brush)
+      if (this.width === 1 && this.height === 1) {
+        ctx.fillRect(0, 0, 1, 1);
+        return;
+      }
+
+      var rx = this.rx ? Math.min(this.rx, this.width / 2) : 0,
+          ry = this.ry ? Math.min(this.ry, this.height / 2) : 0,
           w = this.width,
           h = this.height,
-          isInPathGroup = this.group && this.group.type !== 'group';
+          x = noTransform ? this.left : -this.width / 2,
+          y = noTransform ? this.top : -this.height / 2,
+          isRounded = rx !== 0 || ry !== 0,
+          k = 1 - 0.5522847498 /* "magic number" for bezier approximations of arcs (http://itc.ktu.lt/itc354/Riskus354.pdf) */;
 
       ctx.beginPath();
-      ctx.globalAlpha = isInPathGroup ? (ctx.globalAlpha * this.opacity) : this.opacity;
 
-      if (this.transformMatrix && isInPathGroup) {
-        ctx.translate(
-          this.width / 2 + this.x,
-          this.height / 2 + this.y);
-      }
-      if (!this.transformMatrix && isInPathGroup) {
-        ctx.translate(
-          -this.group.width / 2 + this.width / 2 + this.x,
-          -this.group.height / 2 + this.height / 2 + this.y);
-      }
+      ctx.moveTo(x + rx, y);
 
-      var isRounded = rx !== 0 || ry !== 0;
+      ctx.lineTo(x + w - rx, y);
+      isRounded && ctx.bezierCurveTo(x + w - k * rx, y, x + w, y + k * ry, x + w, y + ry);
 
-      ctx.moveTo(x+rx, y);
-      ctx.lineTo(x+w-rx, y);
-      isRounded && ctx.quadraticCurveTo(x+w, y, x+w, y+ry, x+w, y+ry);
-      ctx.lineTo(x+w, y+h-ry);
-      isRounded && ctx.quadraticCurveTo(x+w,y+h,x+w-rx,y+h,x+w-rx,y+h);
-      ctx.lineTo(x+rx,y+h);
-      isRounded && ctx.quadraticCurveTo(x,y+h,x,y+h-ry,x,y+h-ry);
-      ctx.lineTo(x,y+ry);
-      isRounded && ctx.quadraticCurveTo(x,y,x+rx,y,x+rx,y);
+      ctx.lineTo(x + w, y + h - ry);
+      isRounded && ctx.bezierCurveTo(x + w, y + h - k * ry, x + w - k * rx, y + h, x + w - rx, y + h);
+
+      ctx.lineTo(x + rx, y + h);
+      isRounded && ctx.bezierCurveTo(x + k * rx, y + h, x, y + h - k * ry, x, y + h - ry);
+
+      ctx.lineTo(x, y + ry);
+      isRounded && ctx.bezierCurveTo(x, y + k * ry, x + k * rx, y, x + rx, y);
+
       ctx.closePath();
 
       this._renderFill(ctx);
@@ -129,78 +127,61 @@
 
     /**
      * @private
-     * @param ctx {CanvasRenderingContext2D} context to render on
+     * @param {CanvasRenderingContext2D} ctx Context to render on
      */
     _renderDashedStroke: function(ctx) {
-     var x = -this.width/2,
-         y = -this.height/2,
-         w = this.width,
-         h = this.height;
+      var x = -this.width / 2,
+          y = -this.height / 2,
+          w = this.width,
+          h = this.height;
 
       ctx.beginPath();
-      fabric.util.drawDashedLine(ctx, x, y, x+w, y, this.strokeDashArray);
-      fabric.util.drawDashedLine(ctx, x+w, y, x+w, y+h, this.strokeDashArray);
-      fabric.util.drawDashedLine(ctx, x+w, y+h, x, y+h, this.strokeDashArray);
-      fabric.util.drawDashedLine(ctx, x, y+h, x, y, this.strokeDashArray);
+      fabric.util.drawDashedLine(ctx, x, y, x + w, y, this.strokeDashArray);
+      fabric.util.drawDashedLine(ctx, x + w, y, x + w, y + h, this.strokeDashArray);
+      fabric.util.drawDashedLine(ctx, x + w, y + h, x, y + h, this.strokeDashArray);
+      fabric.util.drawDashedLine(ctx, x, y + h, x, y, this.strokeDashArray);
       ctx.closePath();
     },
 
     /**
-     * Since coordinate system differs from that of SVG
-     * @private
-     */
-    _normalizeLeftTopProperties: function(parsedAttributes) {
-      if ('left' in parsedAttributes) {
-        this.set('left', parsedAttributes.left + this.getWidth() / 2);
-      }
-      this.set('x', parsedAttributes.left || 0);
-      if ('top' in parsedAttributes) {
-        this.set('top', parsedAttributes.top + this.getHeight() / 2);
-      }
-      this.set('y', parsedAttributes.top || 0);
-      return this;
-    },
-
-    /**
      * Returns object representation of an instance
-     * @param {Array} propertiesToInclude
+     * @param {Array} [propertiesToInclude] Any properties that you might want to additionally include in the output
      * @return {Object} object representation of an instance
      */
     toObject: function(propertiesToInclude) {
-      return extend(this.callSuper('toObject', propertiesToInclude), {
+      var object = extend(this.callSuper('toObject', propertiesToInclude), {
         rx: this.get('rx') || 0,
-        ry: this.get('ry') || 0,
-        x: this.get('x'),
-        y: this.get('y')
+        ry: this.get('ry') || 0
       });
+      if (!this.includeDefaultValues) {
+        this._removeDefaultValues(object);
+      }
+      return object;
     },
 
     /* _TO_SVG_START_ */
     /**
      * Returns svg representation of an instance
+     * @param {Function} [reviver] Method for further parsing of svg representation.
      * @return {String} svg representation of an instance
      */
-    toSVG: function() {
-      var markup = [];
-
-      if (this.fill && this.fill.toLive) {
-        markup.push(this.fill.toSVG(this, false));
+    toSVG: function(reviver) {
+      var markup = this._createBaseSVGMarkup(), x = this.left, y = this.top;
+      if (!(this.group && this.group.type === 'path-group')) {
+        x = -this.width / 2;
+        y = -this.height / 2;
       }
-      if (this.stroke && this.stroke.toLive) {
-        markup.push(this.stroke.toSVG(this, false));
-      }
-
       markup.push(
         '<rect ',
-          'x="', (-1 * this.width / 2), '" y="', (-1 * this.height / 2),
+          'x="', x, '" y="', y,
           '" rx="', this.get('rx'), '" ry="', this.get('ry'),
           '" width="', this.width, '" height="', this.height,
           '" style="', this.getSvgStyles(),
           '" transform="', this.getSvgTransform(),
-        '"/>'
-      );
+          this.getSvgTransformMatrix(),
+        '"/>\n');
 
-      return markup.join('');
+      return reviver ? reviver(markup.join('')) : markup.join('');
     },
     /* _TO_SVG_END_ */
 
@@ -217,21 +198,15 @@
   /**
    * List of attribute names to account for when parsing SVG element (used by `fabric.Rect.fromElement`)
    * @static
+   * @memberOf fabric.Rect
+   * @see: http://www.w3.org/TR/SVG/shapes.html#RectElement
    */
   fabric.Rect.ATTRIBUTE_NAMES = fabric.SHARED_ATTRIBUTES.concat('x y rx ry width height'.split(' '));
 
   /**
-   * @private
-   */
-  function _setDefaultLeftTopValues(attributes) {
-    attributes.left = attributes.left || 0;
-    attributes.top  = attributes.top  || 0;
-    return attributes;
-  }
-
-  /**
    * Returns {@link fabric.Rect} instance from an SVG element
    * @static
+   * @memberOf fabric.Rect
    * @param {SVGElement} element Element to parse
    * @param {Object} [options] Options object
    * @return {fabric.Rect} Instance of fabric.Rect
@@ -240,13 +215,14 @@
     if (!element) {
       return null;
     }
+    options = options || { };
 
     var parsedAttributes = fabric.parseAttributes(element, fabric.Rect.ATTRIBUTE_NAMES);
-    parsedAttributes = _setDefaultLeftTopValues(parsedAttributes);
 
+    parsedAttributes.left = parsedAttributes.left || 0;
+    parsedAttributes.top  = parsedAttributes.top  || 0;
     var rect = new fabric.Rect(extend((options ? fabric.util.object.clone(options) : { }), parsedAttributes));
-    rect._normalizeLeftTopProperties(parsedAttributes);
-
+    rect.visible = rect.width > 0 && rect.height > 0;
     return rect;
   };
   /* _FROM_SVG_END_ */
@@ -254,7 +230,8 @@
   /**
    * Returns {@link fabric.Rect} instance from an object representation
    * @static
-   * @param object {Object} object to create an instance from
+   * @memberOf fabric.Rect
+   * @param {Object} object Object to create an instance from
    * @return {Object} instance of fabric.Rect
    */
   fabric.Rect.fromObject = function(object) {

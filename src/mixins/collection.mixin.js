@@ -4,27 +4,28 @@
 fabric.Collection = {
 
   /**
-   * Adds objects to collection, then renders canvas (if `renderOnAddition` is not `false`)
+   * Adds objects to collection, then renders canvas (if `renderOnAddRemove` is not `false`)
    * Objects should be instances of (or inherit from) fabric.Object
-   * @param [...] Zero or more fabric instances
+   * @param {...fabric.Object} object Zero or more fabric instances
    * @return {Self} thisArg
    */
   add: function () {
     this._objects.push.apply(this._objects, arguments);
-    for (var i = arguments.length; i--; ) {
+    for (var i = 0, length = arguments.length; i < length; i++) {
       this._onObjectAdded(arguments[i]);
     }
-    this.renderOnAddition && this.renderAll();
+    this.renderOnAddRemove && this.renderAll();
     return this;
   },
 
   /**
-   * Inserts an object into collection at specified index and renders canvas
+   * Inserts an object into collection at specified index, then renders canvas (if `renderOnAddRemove` is not `false`)
    * An object should be an instance of (or inherit from) fabric.Object
-   * @param object {Object} Object to insert
-   * @param index {Number} index to insert object at
-   * @param nonSplicing {Boolean} when `true`, no splicing (shifting) of objects occurs
+   * @param {Object} object Object to insert
+   * @param {Number} index Index to insert object at
+   * @param {Boolean} nonSplicing When `true`, no splicing (shifting) of objects occurs
    * @return {Self} thisArg
+   * @chainable
    */
   insertAt: function (object, index, nonSplicing) {
     var objects = this.getObjects();
@@ -35,28 +36,32 @@ fabric.Collection = {
       objects.splice(index, 0, object);
     }
     this._onObjectAdded(object);
-    this.renderOnAddition && this.renderAll();
+    this.renderOnAddRemove && this.renderAll();
     return this;
   },
 
   /**
-   * Removes an object from a group
-   * @param {Object} object
+   * Removes objects from a collection, then renders canvas (if `renderOnAddRemove` is not `false`)
+   * @param {...fabric.Object} object Zero or more fabric instances
    * @return {Self} thisArg
+   * @chainable
    */
-  remove: function(object) {
+  remove: function() {
+    var objects = this.getObjects(),
+        index;
 
-    var objects = this.getObjects();
-    var index = objects.indexOf(object);
+    for (var i = 0, length = arguments.length; i < length; i++) {
+      index = objects.indexOf(arguments[i]);
 
-    // only call onObjectRemoved if an object was actually removed
-    if (index !== -1) {
-      objects.splice(index, 1);
-      this._onObjectRemoved(object);
+      // only call onObjectRemoved if an object was actually removed
+      if (index !== -1) {
+        objects.splice(index, 1);
+        this._onObjectRemoved(arguments[i]);
+      }
     }
 
-    this.renderAll && this.renderAll();
-    return object;
+    this.renderOnAddRemove && this.renderAll();
+    return this;
   },
 
   /**
@@ -78,6 +83,21 @@ fabric.Collection = {
       callback.call(context, objects[i], i, objects);
     }
     return this;
+  },
+
+  /**
+   * Returns an array of children objects of this instance
+   * Type parameter introduced in 1.3.10
+   * @param {String} [type] When specified, only objects of this type are returned
+   * @return {Array}
+   */
+  getObjects: function(type) {
+    if (typeof type === 'undefined') {
+      return this._objects;
+    }
+    return this._objects.filter(function(o) {
+      return o.type === type;
+    });
   },
 
   /**
@@ -123,15 +143,5 @@ fabric.Collection = {
       memo += current.complexity ? current.complexity() : 0;
       return memo;
     }, 0);
-  },
-
-  /**
-   * Makes all of the collection objects grayscale (i.e. calling `toGrayscale` on them)
-   * @return {Self} thisArg
-   */
-  toGrayscale: function() {
-    return this.forEachObject(function(obj) {
-      obj.toGrayscale();
-    });
   }
 };

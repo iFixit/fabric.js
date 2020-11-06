@@ -2,8 +2,14 @@
 
   var emptyImageCanvasData = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAfQAAAH0CAYAAADL1t+KAAAH7ElEQVR4nO3VMQ0AMAzAsPInvYHoMS2yEeTLHADge/M6AADYM3QACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIMHQACDB0AAgwdAAIuMjH4b7osLFBAAAAAElFTkSuQmCC";
 
-  var PATH_JSON = '{"objects": [{"type": "path", "originX": "center", "originY": "center", "left": 268, "top": 266, "width": 51, "height": 49,'+
-                  ' "fill": "rgb(0,0,0)", "overlayFill": null, "stroke": null, "strokeWidth": 1, "scaleX": 1, "scaleY": 1, '+
+  var CANVAS_SVG = '<?xml version="1.0" encoding="UTF-8" standalone="no" ?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">\n'+
+                   '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="600" height="600" xml:space="preserve"><desc>Created with Fabric.js ' + fabric.version + '</desc><defs></defs></svg>';
+
+  var CANVAS_SVG_VIEWBOX = '<?xml version="1.0" encoding="UTF-8" standalone="no" ?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">\n'+
+                           '<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" version="1.1" width="300" height="300" viewBox="100 100 300 300" xml:space="preserve"><desc>Created with Fabric.js ' + fabric.version + '</desc><defs></defs></svg>';
+
+  var PATH_JSON = '{"objects": [{"type": "path", "originX": "left", "originY": "top", "left": 268, "top": 266, "width": 51, "height": 49,'+
+                  ' "fill": "rgb(0,0,0)", "stroke": null, "strokeWidth": 1, "scaleX": 1, "scaleY": 1, '+
                   '"angle": 0, "flipX": false, "flipY": false, "opacity": 1, "path": [["M", 18.511, 13.99],'+
                   ' ["c", 0, 0, -2.269, -4.487, -12.643, 4.411], ["c", 0, 0, 4.824, -14.161, 19.222, -9.059],'+
                   ' ["l", 0.379, -2.1], ["c", -0.759, -0.405, -1.375, -1.139, -1.645, -2.117], ["c", -0.531, '+
@@ -17,22 +23,112 @@
                   ' -3.56, 6.891, -7.481, 8.848], ["c", -4.689, 2.336, -9.084, -0.802, -11.277, -2.868], ["l",'+
                   ' -1.948, 3.104], ["l", -1.628, -1.333], ["l", 3.138, -4.689], ["c", 0.025, 0, 9, 1.932, 9, 1.932], '+
                   '["c", 0.877, -9.979, 2.893, -12.905, 4.942, -15.621], ["C", 17.878, 21.775, 18.713, 17.397, 18.511, '+
-                  '13.99], ["z", null]]}], "background": "#ff5555"}';
+                  '13.99], ["z", null]]}], "background": "#ff5555", "overlay":"rgba(0,0,0,0.2)"}';
 
-  var PATH_DATALESS_JSON = '{"objects":[{"type":"path","originX":"center","originY":"center","left":200,"top":200,"width":200,"height":200,"fill":"rgb(0,0,0)",'+
-                           '"overlayFill":null,"stroke":null,"strokeWidth":1,"strokeDashArray":null,"strokeLineCap":"butt","strokeLineJoin":"miter","strokeMiterLimit":10,'+
-                           '"scaleX":1,"scaleY":1,"angle":0,"flipX":false,"flipY":false,"opacity":1,"selectable":true,"hasControls":true,"hasBorders":true,"hasRotatingPoint":true,"transparentCorners":true,'+
-                           '"perPixelTargetFind":false,"shadow":null,"visible":true,"clipTo":null,"path":"http://example.com/","pathOffset":{"x":100,"y":100}}],"background":""}';
+  var PATH_DATALESS_JSON = '{"objects":[{"type":"path","originX":"left","originY":"top","left":100,"top":100,"width":200,"height":200,"fill":"rgb(0,0,0)",'+
+                           '"stroke":null,"strokeWidth":1,"strokeDashArray":null,"strokeLineCap":"butt","strokeLineJoin":"miter","strokeMiterLimit":10,'+
+                           '"scaleX":1,"scaleY":1,"angle":0,"flipX":false,"flipY":false,"opacity":1,'+
+                           '"shadow":null,"visible":true,"clipTo":null,"backgroundColor":"","fillRule":"nonzero","globalCompositeOperation":"source-over","path":"http://example.com/","pathOffset":{"x":200,"y":200}}],"background":""}';
 
-  var RECT_JSON = '{"objects":[{"type":"rect","originX":"center","originY":"center","left":0,"top":0,"width":10,"height":10,"fill":"rgb(0,0,0)","overlayFill":null,'+
+  var RECT_JSON = '{"objects":[{"type":"rect","originX":"left","originY":"top","left":0,"top":0,"width":10,"height":10,"fill":"rgb(0,0,0)",'+
                   '"stroke":null,"strokeWidth":1,"strokeDashArray":null,"strokeLineCap":"butt","strokeLineJoin":"miter","strokeMiterLimit":10,'+
-                  '"scaleX":1,"scaleY":1,"angle":0,"flipX":false,"flipY":false,"opacity":1,"selectable":true,"hasControls":true,"hasBorders":true,"hasRotatingPoint":true,'+
-                  '"transparentCorners":true,"perPixelTargetFind":false,"shadow":null,"visible":true,"clipTo":null,"rx":0,"ry":0,"x":0,"y":0}],"background":"#ff5555"}';
+                  '"scaleX":1,"scaleY":1,"angle":0,"flipX":false,"flipY":false,"opacity":1,'+
+                  '"shadow":null,"visible":true,"clipTo":null,"backgroundColor":"","fillRule":"nonzero","globalCompositeOperation":"source-over","rx":0,"ry":0}],"background":"#ff5555","overlay":"rgba(0,0,0,0.2)"}';
 
-  var RECT_JSON_WITH_PADDING = '{"objects":[{"type":"rect","originX":"center","originY":"center","left":0,"top":0,"width":10,"height":20,"fill":"rgb(0,0,0)","overlayFill":null,'+
+  var RECT_JSON_WITH_PADDING = '{"objects":[{"type":"rect","originX":"left","originY":"top","left":0,"top":0,"width":10,"height":20,"fill":"rgb(0,0,0)",'+
                                '"stroke":null,"strokeWidth":1,"strokeDashArray":null,"strokeLineCap":"butt","strokeLineJoin":"miter","strokeMiterLimit":10,'+
-                               '"scaleX":1,"scaleY":1,"angle":0,"flipX":false,"flipY":false,"opacity":1,"selectable":true,"hasControls":true,"hasBorders":true,"hasRotatingPoint":true,'+
-                               '"transparentCorners":true,"perPixelTargetFind":false,"shadow":null,"visible":true,"clipTo":null,"padding":123,"foo":"bar","rx":0,"ry":0,"x":0,"y":0}],"background":""}';
+                               '"scaleX":1,"scaleY":1,"angle":0,"flipX":false,"flipY":false,"opacity":1,'+
+                               '"shadow":null,"visible":true,"clipTo":null,"backgroundColor":"","fillRule":"nonzero","globalCompositeOperation":"source-over","padding":123,"foo":"bar","rx":0,"ry":0}],"background":""}';
+
+  function getAbsolutePath(path) {
+    var isAbsolute = /^https?:/.test(path);
+    if (isAbsolute) return path;
+    var imgEl = _createImageElement();
+    imgEl.src = path;
+    var src = imgEl.src;
+    imgEl = null;
+    return src;
+  }
+
+  var IMG_SRC     = fabric.isLikelyNode ? (__dirname + '/../fixtures/test_image.gif') : getAbsolutePath('../fixtures/test_image.gif'),
+      IMG_WIDTH   = 276,
+      IMG_HEIGHT  = 110;
+
+  var REFERENCE_IMG_OBJECT = {
+    'type':                    'image',
+    'originX':                 'left',
+    'originY':                 'top',
+    'left':                     0,
+    'top':                      0,
+    'width':                    IMG_WIDTH, // node-canvas doesn't seem to allow setting width/height on image objects
+    'height':                   IMG_HEIGHT, // or does it now?
+    'fill':                     'rgb(0,0,0)',
+    'stroke':                   null,
+    'strokeWidth':              1,
+    'strokeDashArray':          null,
+    'strokeLineCap':            'butt',
+    'strokeLineJoin':           'miter',
+    'strokeMiterLimit':         10,
+    'scaleX':                   1,
+    'scaleY':                   1,
+    'angle':                    0,
+    'flipX':                    false,
+    'flipY':                    false,
+    'opacity':                  1,
+    'src':                      fabric.isLikelyNode ? undefined : IMG_SRC,
+    'shadow':                   null,
+    'visible':                  true,
+    'backgroundColor':          '',
+    'clipTo':                   null,
+    'filters':                  [],
+    'crossOrigin':              '',
+    'fillRule':                 'nonzero',
+    'globalCompositeOperation': 'source-over',
+    'alignX':                   'none',
+    'alignY':                   'none',
+    'meetOrSlice':              'meet'
+  };
+
+  function _createImageElement() {
+    return fabric.isLikelyNode ? new (require('canvas').Image) : fabric.document.createElement('img');
+  }
+
+  function _createImageObject(width, height, callback) {
+    var elImage = _createImageElement();
+    elImage.width = width;
+    elImage.height = height;
+    setSrc(elImage, IMG_SRC, function() {
+      callback(new fabric.Image(elImage));
+    });
+  }
+
+  function createImageObject(callback) {
+    return _createImageObject(IMG_WIDTH, IMG_HEIGHT, callback);
+  }
+
+  function setSrc(img, src, callback) {
+    if (fabric.isLikelyNode) {
+      require('fs').readFile(src, function(err, imgData) {
+        if (err) throw err;
+        img.src = imgData;
+        callback && callback();
+      });
+    }
+    else {
+      img.src = src;
+      callback && callback();
+    }
+  }
+
+  function fixImageDimension(imgObj) {
+    // workaround for node-canvas sometimes producing images with width/height and sometimes not
+    if (imgObj.width === 0) {
+      imgObj.width = IMG_WIDTH;
+    }
+    if (imgObj.height === 0) {
+      imgObj.height = IMG_HEIGHT;
+    }
+  }
 
   // force creation of static canvas
   // TODO: fix this
@@ -41,7 +137,8 @@
   var el = fabric.document.createElement('canvas');
   el.width = 600; el.height = 600;
 
-  var canvas = this.canvas = fabric.isLikelyNode ? fabric.createCanvasForNode() : new fabric.StaticCanvas(el);
+  var canvas = this.canvas = fabric.isLikelyNode ? fabric.createCanvasForNode() : new fabric.StaticCanvas(el),
+      canvas2 = this.canvas2 = fabric.isLikelyNode ? fabric.createCanvasForNode() : new fabric.StaticCanvas(el);
   fabric.Canvas = Canvas;
 
   var lowerCanvasEl = canvas.lowerCanvasEl;
@@ -55,19 +152,44 @@
     teardown: function() {
       canvas.clear();
       canvas.backgroundColor = fabric.StaticCanvas.prototype.backgroundColor;
+      canvas.overlayColor = fabric.StaticCanvas.prototype.overlayColor;
       canvas.calcOffset();
     }
   });
 
   test('initialProperties', function() {
     ok('backgroundColor' in canvas);
+    ok('overlayColor' in canvas);
+    ok('backgroundImage' in canvas);
+    ok('overlayImage' in canvas);
+    ok('clipTo' in canvas);
+
     equal(canvas.includeDefaultValues, true);
+    equal(canvas.stateful, true);
+    equal(canvas.renderOnAddRemove, true);
+    equal(canvas.controlsAboveOverlay, false);
+    equal(canvas.imageSmoothingEnabled, true);
+
+    notStrictEqual(canvas.viewportTransform, canvas2.viewportTransform);
   });
 
   test('getObjects', function() {
     ok(typeof canvas.getObjects == 'function', 'should respond to `getObjects` method');
     deepEqual([], canvas.getObjects(), 'should return empty array for `getObjects` when empty');
     equal(canvas.getObjects().length, 0, 'should have a 0 length when empty');
+  });
+
+  test('getObjects with type', function() {
+
+    var rect = new fabric.Rect({ width: 10, height: 20 });
+    var circle = new fabric.Circle({ radius: 30 });
+
+    canvas.add(rect, circle);
+
+    equal(canvas.getObjects().length, 2, 'should have length=2 initially');
+
+    deepEqual(canvas.getObjects('rect'), [rect], 'should return rect only');
+    deepEqual(canvas.getObjects('circle'), [circle], 'should return circle only');
   });
 
   test('getElement', function() {
@@ -85,18 +207,81 @@
 
   test('calcOffset', function() {
     ok(typeof canvas.calcOffset == 'function', 'should respond to `calcOffset`');
-    equal(canvas, canvas.calcOffset());
+    equal(canvas.calcOffset(), canvas, 'should be chainable');
   });
 
   test('add', function() {
-    var rect = makeRect();
+    var rect1 = makeRect(),
+        rect2 = makeRect(),
+        rect3 = makeRect(),
+        rect4 = makeRect();
 
     ok(typeof canvas.add == 'function');
-    ok(canvas === canvas.add(rect), 'should be chainable');
+    equal(canvas.add(rect1), canvas, 'should be chainable');
+    strictEqual(canvas.item(0), rect1);
+
+    canvas.add(rect2, rect3, rect4);
+    equal(canvas.getObjects().length, 4, 'should support multiple arguments');
+
+    strictEqual(canvas.item(1), rect2);
+    strictEqual(canvas.item(2), rect3);
+    strictEqual(canvas.item(3), rect4);
+  });
+
+  test('add renderOnAddRemove disabled', function() {
+    var rect = makeRect(),
+        originalRenderOnAddition,
+        renderAllCount = 0;
+
+    function countRenderAll() {
+      renderAllCount++;
+    }
+
+    originalRenderOnAddition = canvas.renderOnAddRemove;
+    canvas.renderOnAddRemove = false;
+
+    canvas.on('after:render', countRenderAll);
+
+    equal(canvas.add(rect), canvas, 'should be chainable');
+    equal(renderAllCount, 0);
+
     equal(canvas.item(0), rect);
 
     canvas.add(makeRect(), makeRect(), makeRect());
     equal(canvas.getObjects().length, 4, 'should support multiple arguments');
+    equal(renderAllCount, 0);
+
+    canvas.renderAll();
+    equal(renderAllCount, 1);
+
+    canvas.off('after:render', countRenderAll);
+    canvas.renderOnAddRemove = originalRenderOnAddition;
+  });
+
+  test('object:added', function() {
+    var objectsAdded = [];
+
+    canvas.on('object:added', function(e) {
+      objectsAdded.push(e.target);
+    });
+
+    var rect = new fabric.Rect({ width: 10, height: 20 });
+    canvas.add(rect);
+
+    deepEqual(objectsAdded[0], rect);
+
+    var circle1 = new fabric.Circle(),
+        circle2 = new fabric.Circle();
+
+    canvas.add(circle1, circle2);
+
+    strictEqual(objectsAdded[1], circle1);
+    strictEqual(objectsAdded[2], circle2);
+
+    var circle3 = new fabric.Circle();
+    canvas.insertAt(circle3, 2);
+
+    strictEqual(objectsAdded[3], circle3);
   });
 
   test('insertAt', function() {
@@ -109,27 +294,141 @@
 
     var rect = makeRect();
     canvas.insertAt(rect, 1);
-    equal(canvas.item(1), rect);
+    strictEqual(canvas.item(1), rect);
     canvas.insertAt(rect, 2);
-    equal(canvas.item(2), rect);
-    equal(canvas, canvas.insertAt(rect, 2), 'should be chainable');
+    strictEqual(canvas.item(2), rect);
+    equal(canvas.insertAt(rect, 2), canvas, 'should be chainable');
+  });
+
+  test('insertAt renderOnAddRemove disabled', function() {
+    var rect1 = makeRect(),
+        rect2 = makeRect(),
+        originalRenderOnAddition,
+        renderAllCount = 0;
+
+    function countRenderAll() {
+      renderAllCount++;
+    }
+
+    originalRenderOnAddition = canvas.renderOnAddRemove;
+    canvas.renderOnAddRemove = false;
+
+    canvas.on('after:render', countRenderAll);
+
+    canvas.add(rect1, rect2);
+    equal(renderAllCount, 0);
+
+    var rect = makeRect();
+
+    canvas.insertAt(rect, 1);
+    equal(renderAllCount, 0);
+
+    strictEqual(canvas.item(1), rect);
+    canvas.insertAt(rect, 2);
+    equal(renderAllCount, 0);
+
+    canvas.renderAll();
+    equal(renderAllCount, 1);
+
+    canvas.off('after:render', countRenderAll);
+    canvas.renderOnAddRemove = originalRenderOnAddition;
+  });
+
+  test('remove', function() {
+    var rect1 = makeRect(),
+        rect2 = makeRect(),
+        rect3 = makeRect(),
+        rect4 = makeRect();
+
+    canvas.add(rect1, rect2, rect3, rect4);
+
+    ok(typeof canvas.remove == 'function');
+    equal(canvas.remove(rect1), canvas, 'should be chainable');
+    strictEqual(canvas.item(0), rect2, 'should be second object');
+
+    canvas.remove(rect2, rect3);
+    strictEqual(canvas.item(0), rect4);
+
+    canvas.remove(rect4);
+    equal(canvas.isEmpty(), true, 'canvas should be empty');
+  });
+
+  test('remove renderOnAddRemove disabled', function() {
+    var rect1 = makeRect(),
+        rect2 = makeRect(),
+        originalRenderOnAddition,
+        renderAllCount = 0;
+
+    function countRenderAll() {
+      renderAllCount++;
+    }
+
+    originalRenderOnAddition = canvas.renderOnAddRemove;
+    canvas.renderOnAddRemove = false;
+
+    canvas.on('after:render', countRenderAll);
+
+    canvas.add(rect1, rect2);
+    equal(renderAllCount, 0);
+
+    equal(canvas.remove(rect1), canvas, 'should be chainable');
+    equal(renderAllCount, 0);
+    strictEqual(canvas.item(0), rect2, 'only second object should be left');
+
+    canvas.renderAll();
+    equal(renderAllCount, 1);
+
+    canvas.off('after:render', countRenderAll);
+    canvas.renderOnAddRemove = originalRenderOnAddition;
+  });
+
+  test('object:removed', function() {
+    var objectsRemoved = [];
+
+    canvas.on('object:removed', function(e) {
+      objectsRemoved.push(e.target);
+    });
+
+    var rect = new fabric.Rect({ width: 10, height: 20 }),
+        circle1 = new fabric.Circle(),
+        circle2 = new fabric.Circle();
+
+    canvas.add(rect, circle1, circle2);
+
+    strictEqual(canvas.item(0), rect);
+    strictEqual(canvas.item(1), circle1);
+    strictEqual(canvas.item(2), circle2);
+
+    canvas.remove(rect);
+    strictEqual(objectsRemoved[0], rect);
+
+    canvas.remove(circle1, circle2);
+    strictEqual(objectsRemoved[1], circle1);
+    strictEqual(objectsRemoved[2], circle2);
+
+    equal(canvas.isEmpty(), true, 'canvas should be empty');
   });
 
   test('clearContext', function() {
     ok(typeof canvas.clearContext == 'function');
-    equal(canvas, canvas.clearContext(canvas.contextContainer), 'chainable');
+    equal(canvas.clearContext(canvas.contextContainer), canvas, 'should be chainable');
   });
 
   test('clear', function() {
     ok(typeof canvas.clear == 'function');
 
-    equal(canvas, canvas.clear());
+    equal(canvas.clear(), canvas, 'should be chainable');
     equal(canvas.getObjects().length, 0);
   });
 
   test('renderAll', function() {
     ok(typeof canvas.renderAll == 'function');
     equal(canvas, canvas.renderAll());
+  });
+
+  test('preserveObjectStacking', function() {
+    ok(typeof canvas.preserveObjectStacking == 'boolean');
+    ok(!canvas.preserveObjectStacking);
   });
 
   test('renderTop', function() {
@@ -151,12 +450,28 @@
     }
   });
 
+  test('toDataURL jpg', function() {
+    if (!fabric.Canvas.supports('toDataURL')) {
+      alert("toDataURL is not supported by this environment. Some of the tests can not be run.");
+    }
+    else {
+      try {
+        var dataURL = canvas.toDataURL({ format: 'jpg' });
+        equal(dataURL.substring(0, 22), 'data:image/jpeg;base64');
+      }
+      // node-canvas does not support jpeg data urls
+      catch(err) {
+        ok(true);
+      }
+    }
+  });
+
   test('centerObjectH', function() {
     ok(typeof canvas.centerObjectH == 'function');
     var rect = makeRect({ left: 102, top: 202 });
     canvas.add(rect);
     equal(canvas.centerObjectH(rect), canvas, 'should be chainable');
-    equal(rect.get('left'), lowerCanvasEl.width / 2, 'object\'s "left" property should correspond to canvas element\'s center');
+    equal(rect.getCenterPoint().x, lowerCanvasEl.width / 2, 'object\'s "left" property should correspond to canvas element\'s center');
   });
 
   test('centerObjectV', function() {
@@ -164,7 +479,7 @@
     var rect = makeRect({ left: 102, top: 202 });
     canvas.add(rect);
     equal(canvas.centerObjectV(rect), canvas, 'should be chainable');
-    equal(rect.get('top'), lowerCanvasEl.height / 2, 'object\'s "top" property should correspond to canvas element\'s center');
+    equal(rect.getCenterPoint().y, lowerCanvasEl.height / 2, 'object\'s "top" property should correspond to canvas element\'s center');
   });
 
   test('centerObject', function() {
@@ -173,13 +488,13 @@
     canvas.add(rect);
     equal(canvas.centerObject(rect), canvas, 'should be chainable');
 
-    equal(rect.get('top'), lowerCanvasEl.height / 2, 'object\'s "top" property should correspond to canvas element\'s center');
-    equal(rect.get('left'), lowerCanvasEl.height / 2, 'object\'s "left" property should correspond to canvas element\'s center');
+    equal(rect.getCenterPoint().y, lowerCanvasEl.height / 2, 'object\'s "top" property should correspond to canvas element\'s center');
+    equal(rect.getCenterPoint().x, lowerCanvasEl.height / 2, 'object\'s "left" property should correspond to canvas element\'s center');
   });
 
   test('straightenObject', function() {
     ok(typeof canvas.straightenObject == 'function');
-    var rect = makeRect({ angle: 10 })
+    var rect = makeRect({ angle: 10 });
     canvas.add(rect);
     equal(canvas.straightenObject(rect), canvas, 'should be chainable');
     equal(rect.getAngle(), 0, 'angle should be coerced to 0 (from 10)');
@@ -193,6 +508,24 @@
     equal(rect.getAngle(), 90, 'angle should be coerced to 90 (from 100)');
   });
 
+  test('toSVG', function() {
+    ok(typeof canvas.toSVG == 'function');
+    canvas.clear();
+
+    var svg = canvas.toSVG();
+    equal(svg, CANVAS_SVG);
+  });
+
+  test('toSVG with different encoding (ISO-8859-1)', function() {
+    ok(typeof canvas.toSVG == 'function');
+    canvas.clear();
+
+    var svg = canvas.toSVG({encoding: 'ISO-8859-1'});
+    var svgDefaultEncoding = canvas.toSVG();
+    ok(svg != svgDefaultEncoding);
+    equal(svg, CANVAS_SVG.replace('encoding="UTF-8"', 'encoding="ISO-8859-1"'));
+  });
+
   test('toSVG without preamble', function() {
     ok(typeof canvas.toSVG == 'function');
     var withPreamble = canvas.toSVG();
@@ -201,13 +534,107 @@
     equal(withoutPreamble.slice(0, 4), '<svg', 'svg should start with root node when premable is suppressed');
   });
 
+  test('toSVG with viewBox', function() {
+    ok(typeof canvas.toSVG == 'function');
+    canvas.clear();
+
+    var svg = canvas.toSVG({viewBox: {x: 100, y: 100, width: 300, height: 300}});
+    equal(svg, CANVAS_SVG_VIEWBOX);
+  });
+
+  test('toSVG with reviver', function() {
+    ok(typeof canvas.toSVG == 'function');
+    canvas.clear();
+
+    var circle = new fabric.Circle(),
+        rect = new fabric.Rect(),
+        path1 = new fabric.Path('M 100 100 L 300 100 L 200 300 z'),
+        tria = new fabric.Triangle(),
+        polygon = new fabric.Polygon([{x: 10, y: 12},{x: 20, y: 22}]),
+        polyline = new fabric.Polyline([{x: 10, y: 12},{x: 20, y: 22}]),
+        line = new fabric.Line(),
+        text = new fabric.Text('Text'),
+        group = new fabric.Group([text, line]),
+        ellipse = new fabric.Ellipse(),
+        image = new fabric.Image({width: 0, height: 0}),
+        path2 = new fabric.Path('M 0 0 L 200 100 L 200 300 z'),
+        path3 = new fabric.Path('M 50 50 L 100 300 L 400 400 z'),
+        pathGroup = new fabric.PathGroup([path2, path3]);
+
+    canvas.renderOnAddRemove = false;
+    canvas.add(circle, rect, path1, tria, polygon, polyline, group, ellipse, image, pathGroup);
+
+    var reviverCount = 0,
+        len = canvas.size() + group.size() + pathGroup.paths.length;
+
+    function reviver(svg) {
+      reviverCount++;
+      return svg;
+    }
+
+    var svg = canvas.toSVG(null, reviver);
+    equal(reviverCount, len);
+    canvas.renderOnAddRemove = true;
+  });
+
   test('toJSON', function() {
     ok(typeof canvas.toJSON == 'function');
     equal(JSON.stringify(canvas.toJSON()), '{"objects":[],"background":""}');
     canvas.backgroundColor = '#ff5555';
-    equal(JSON.stringify(canvas.toJSON()), '{"objects":[],"background":"#ff5555"}', '`background` value should be reflected in json');
+    canvas.overlayColor = 'rgba(0,0,0,0.2)';
+    equal(JSON.stringify(canvas.toJSON()), '{"objects":[],"background":"#ff5555","overlay":"rgba(0,0,0,0.2)"}', '`background` and `overlay` value should be reflected in json');
     canvas.add(makeRect());
     deepEqual(JSON.stringify(canvas.toJSON()), RECT_JSON);
+  });
+
+  test('toJSON custom properties non-existence check', function() {
+    var rect = new fabric.Rect({ width: 10, height: 20 });
+    rect.padding = 123;
+    canvas.add(rect);
+    rect.foo = 'bar';
+
+    canvas.bar = 456;
+
+    var data = canvas.toJSON(['padding', 'foo', 'bar', 'baz']);
+    ok('padding' in data.objects[0]);
+    ok('foo' in data.objects[0], 'foo shouldn\'t be included if it\'s not in an object');
+    ok(!('bar' in data.objects[0]), 'bar shouldn\'t be included if it\'s not in an object');
+    ok(!('baz' in data.objects[0]), 'bar shouldn\'t be included if it\'s not in an object');
+    ok(!('foo' in data));
+    ok(!('baz' in data));
+    ok('bar' in data);
+  });
+
+  asyncTest('toJSON backgroundImage', function() {
+    createImageObject(function(image) {
+
+      canvas.backgroundImage = image;
+
+      var json = canvas.toJSON();
+
+      fixImageDimension(json.backgroundImage);
+      deepEqual(json.backgroundImage, REFERENCE_IMG_OBJECT);
+
+      canvas.backgroundImage = null;
+
+      start();
+    });
+  });
+
+  asyncTest('toJSON overlayImage', function() {
+    createImageObject(function(image) {
+
+      canvas.overlayImage = image;
+
+      var json = canvas.toJSON();
+
+      fixImageDimension(json.overlayImage);
+      deepEqual(json.overlayImage, REFERENCE_IMG_OBJECT);
+
+      canvas.overlayImage = null;
+
+      start();
+    });
   });
 
   test('toDatalessJSON', function() {
@@ -286,8 +713,8 @@
 
       equal(obj.get('left'), 268);
       equal(obj.get('top'), 266);
-      equal(obj.get('width'), 51);
-      equal(obj.get('height'), 49);
+      equal(obj.get('width'), 49.803999999999995);
+      equal(obj.get('height'), 48.027);
       equal(obj.get('fill'), 'rgb(0,0,0)');
       equal(obj.get('stroke'), null);
       equal(obj.get('strokeWidth'), 1);
@@ -311,11 +738,12 @@
       ok(!canvas.isEmpty(), 'canvas is not empty');
       equal(obj.type, 'path', 'first object is a path object');
       equal(canvas.backgroundColor, '#ff5555', 'backgroundColor is populated properly');
+      equal(canvas.overlayColor, 'rgba(0,0,0,0.2)', 'overlayColor is populated properly');
 
       equal(obj.get('left'), 268);
       equal(obj.get('top'), 266);
-      equal(obj.get('width'), 51);
-      equal(obj.get('height'), 49);
+      equal(obj.get('width'), 49.803999999999995);
+      equal(obj.get('height'), 48.027);
       equal(obj.get('fill'), 'rgb(0,0,0)');
       equal(obj.get('stroke'), null);
       equal(obj.get('strokeWidth'), 1);
@@ -352,31 +780,19 @@
     });
   });
 
-  test('toJSON custom properties non-existence check', function() {
-    var rect = new fabric.Rect({ width: 10, height: 20 });
-    rect.padding = 123;
-    canvas.add(rect);
-    rect.foo = 'bar';
+  asyncTest('loadFromJSON with text', function() {
+    var json = '{"objects":[{"type":"text","left":150,"top":200,"width":128,"height":64.32,"fill":"#000000","stroke":"","strokeWidth":"","scaleX":0.8,"scaleY":0.8,"angle":0,"flipX":false,"flipY":false,"opacity":1,"text":"NAME HERE","fontSize":24,"fontWeight":"","fontFamily":"Delicious_500","fontStyle":"","lineHeight":"","textDecoration":"","textAlign":"center","path":"","strokeStyle":"","backgroundColor":""}],"background":"#ffffff"}';
+    canvas.loadFromJSON(json, function() {
 
-    canvas.bar = 456;
+      canvas.renderAll();
 
-    var data = canvas.toJSON(['padding', 'foo', 'bar', 'baz']);
-    ok('padding' in data.objects[0]);
-    ok('foo' in data.objects[0], 'foo shouldn\'t be included if it\'s not in an object');
-    ok(!('bar' in data.objects[0]), 'bar shouldn\'t be included if it\'s not in an object');
-    ok(!('baz' in data.objects[0]), 'bar shouldn\'t be included if it\'s not in an object');
-    ok(!('foo' in data));
-    ok(!('baz' in data));
-    ok('bar' in data);
-  });
+      equal('text', canvas.item(0).type);
+      equal(150, canvas.item(0).left);
+      equal(200, canvas.item(0).top);
+      equal('NAME HERE', canvas.item(0).text);
 
-  test('remove', function() {
-    ok(typeof canvas.remove == 'function');
-    var rect1 = makeRect(),
-        rect2 = makeRect();
-    canvas.add(rect1, rect2);
-    equal(canvas.remove(rect1), rect1, 'should return removed object');
-    equal(canvas.item(0), rect2, 'only second object should be left');
+      start();
+    });
   });
 
   test('sendToBack', function() {
@@ -616,66 +1032,50 @@
   test('getSetWidth', function() {
     ok(typeof canvas.getWidth == 'function');
     equal(canvas.getWidth(), 600);
-    equal(canvas.setWidth(444), canvas, 'chainable');
+    equal(canvas.setWidth(444), canvas, 'should be chainable');
     equal(canvas.getWidth(), 444);
+    equal(canvas.lowerCanvasEl.style.width, 444 + 'px');
   });
 
   test('getSetHeight', function() {
     ok(typeof canvas.getHeight == 'function');
     equal(canvas.getHeight(), 600);
-    equal(canvas.setHeight(765), canvas, 'chainable');
+    equal(canvas.setHeight(765), canvas, 'should be chainable');
     equal(canvas.getHeight(), 765);
+    equal(canvas.lowerCanvasEl.style.height, 765 + 'px');
   });
 
-  test('toGrayscale', function() {
-    ok(typeof fabric.Canvas.toGrayscale == 'function');
+  test('setWidth css only', function() {
+    canvas.setWidth(123);
+    canvas.setWidth('100%', { cssOnly: true });
 
-    if (!fabric.Canvas.supports('getImageData')) {
-      alert('getImageData is not supported by this environment. Some of the tests can not be run.');
-      return;
-    }
-
-    var canvasEl = fabric.isLikelyNode ? new (require('canvas')) : fabric.document.createElement('canvas'),
-        context = canvasEl.getContext('2d');
-
-    canvasEl.width = canvasEl.height = 10;
-
-    context.fillStyle = 'rgb(255,0,0)'; // red
-    context.fillRect(0, 0, 10, 10);
-
-    var imageData = context.getImageData(0, 0, 10, 10),
-        data = imageData.data,
-        firstPixelData = [data[0], data[1], data[2], data[3]];
-
-    deepEqual([255, 0, 0, 255], firstPixelData);
-
-    fabric.Canvas.toGrayscale(canvasEl);
-
-    imageData = context.getImageData(0, 0, 10, 10);
-    data = imageData.data;
-    firstPixelData = [data[0], data[1], data[2], data[3]];
-
-    deepEqual([85, 85, 85, 255], firstPixelData);
+    equal(canvas.lowerCanvasEl.style.width, '100%', 'Should be as the css only value');
+    equal(canvas.getWidth(), 123, 'Should be as the none css only value');
   });
 
-  // asyncTest('resizeImageToFit', function() {
-  //   ok(typeof canvas._resizeImageToFit == 'function');
+  test('setHeight css only', function() {
+    canvas.setHeight(123);
+    canvas.setHeight('100%', { cssOnly: true });
 
-  //   var imgEl = fabric.util.makeElement('img', { src: '../fixtures/very_large_image.jpg' }),
-  //       ORIGINAL_WIDTH = 3888,
-  //       ORIGINAL_HEIGHT = 2592;
+    equal(canvas.lowerCanvasEl.style.height, '100%', 'Should be as the css only value');
+    equal(canvas.getWidth(), 123, 'Should be as the none css only value');
+  });
 
-  //   setTimeout(function() {
-  //     equal(imgEl.width, ORIGINAL_WIDTH);
-  //     equal(imgEl.height, ORIGINAL_HEIGHT);
+  test('setWidth backstore only', function() {
+    canvas.setWidth(123);
+    canvas.setWidth(500, { backstoreOnly: true });
 
-  //     canvas._resizeImageToFit(imgEl);
+    equal(canvas.lowerCanvasEl.style.width, 123 + 'px', 'Should be as none backstore only value + "px"');
+    equal(canvas.getWidth(), 500, 'Should be as the backstore only value');
+  });
 
-  //     ok(imgEl.width < ORIGINAL_WIDTH);
+  test('setHeight backstore only', function() {
+    canvas.setHeight(123);
+    canvas.setHeight(500, { backstoreOnly: true });
 
-  //     start();
-  //   }, 2000);
-  // });
+    equal(canvas.lowerCanvasEl.style.height, 123 + 'px', 'Should be as none backstore only value + "px"');
+    equal(canvas.getHeight(), 500, 'Should be as the backstore only value');
+  });
 
   asyncTest('fxRemove', function() {
     ok(typeof canvas.fxRemove == 'function');
@@ -689,13 +1089,35 @@
     }
 
     ok(canvas.item(0) === rect);
-    ok(canvas.fxRemove(rect, { onComplete: onComplete }) === canvas, 'should be chainable');
+    equal(canvas.fxRemove(rect, { onComplete: onComplete }), canvas, 'should be chainable');
 
     setTimeout(function() {
       equal(canvas.item(0), undefined);
       ok(callbackFired);
       start();
     }, 1000);
+  });
+
+  asyncTest('options in setBackgroundImage from URL', function() {
+    canvas.setBackgroundImage(IMG_SRC, function() {
+      equal(canvas.backgroundImage.left, 50);
+      equal(canvas.backgroundImage.originX, 'right');
+    }, {
+      left: 50,
+      originX: 'right'
+    });
+  });
+
+  asyncTest('options in setBackgroundImage from image instance', function() {
+    createImageObject(function(imageInstance) {
+      canvas.setBackgroundImage(imageInstance, function() {
+        equal(canvas.backgroundImage.left, 100);
+        equal(canvas.backgroundImage.originX, 'center');
+      }, {
+        left: 100,
+        originX: 'center'
+      });
+    });
   });
 
   // asyncTest('backgroundImage', function() {
@@ -723,46 +1145,5 @@
   //     start();
   //   }, 1000);
   // });
-
-  test('object:added', function() {
-
-    var objectsAdded = [];
-    canvas.on('object:added', function(e) {
-      objectsAdded.push(e.target);
-    });
-
-    var rect = new fabric.Rect({ width: 10, height: 20 });
-    canvas.add(rect);
-
-    deepEqual(objectsAdded[0], rect);
-
-    var circle1 = new fabric.Circle(),
-        circle2 = new fabric.Circle();
-
-    canvas.add(circle1, circle2);
-
-    deepEqual(objectsAdded[1], circle1);
-    deepEqual(objectsAdded[2], circle2);
-
-    var circle3 = new fabric.Circle();
-    canvas.insertAt(circle3, 2);
-
-    deepEqual(objectsAdded[3], circle3);
-  });
-
-  asyncTest('loadFromJSON with text', function() {
-    var json = '{"objects":[{"type":"text","left":150,"top":200,"width":128,"height":64.32,"fill":"#000000","overlayFill":"","stroke":"","strokeWidth":"","scaleX":0.8,"scaleY":0.8,"angle":0,"flipX":false,"flipY":false,"opacity":1,"selectable":true,"text":"NAME HERE","fontSize":24,"fontWeight":"","fontFamily":"Delicious_500","fontStyle":"","lineHeight":"","textDecoration":"","textShadow":"","textAlign":"center","path":"","strokeStyle":"","backgroundColor":""}],"background":"#ffffff"}';
-    canvas.loadFromJSON(json, function() {
-
-      canvas.renderAll();
-
-      equal('text', canvas.item(0).type);
-      equal(150, canvas.item(0).left);
-      equal(200, canvas.item(0).top)
-      equal('NAME HERE', canvas.item(0).text);
-
-      start();
-    });
-  });
 
 })();

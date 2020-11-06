@@ -1,6 +1,6 @@
 (function(global) {
 
-  "use strict";
+  'use strict';
 
   var fabric = global.fabric || (global.fabric = { });
 
@@ -14,6 +14,7 @@
    * @class fabric.Triangle
    * @extends fabric.Object
    * @return {fabric.Triangle} thisArg
+   * @see {@link fabric.Triangle#initialize} for constructor definition
    */
   fabric.Triangle = fabric.util.createClass(fabric.Object, /** @lends fabric.Triangle.prototype */ {
 
@@ -40,7 +41,7 @@
 
     /**
      * @private
-     * @param ctx {CanvasRenderingContext2D} Context to render on
+     * @param {CanvasRenderingContext2D} ctx Context to render on
      */
     _render: function(ctx) {
       var widthBy2 = this.width / 2,
@@ -58,7 +59,7 @@
 
     /**
      * @private
-     * @param ctx {CanvasRenderingContext2D} Context to render on
+     * @param {CanvasRenderingContext2D} ctx Context to render on
      */
     _renderDashedStroke: function(ctx) {
       var widthBy2 = this.width / 2,
@@ -74,25 +75,19 @@
     /* _TO_SVG_START_ */
     /**
      * Returns SVG representation of an instance
+     * @param {Function} [reviver] Method for further parsing of svg representation.
      * @return {String} svg representation of an instance
      */
-    toSVG: function() {
-      var markup = [],
+    toSVG: function(reviver) {
+      var markup = this._createBaseSVGMarkup(),
           widthBy2 = this.width / 2,
-          heightBy2 = this.height / 2;
-
-      var points = [
-        -widthBy2 + " " + heightBy2,
-        "0 " + -heightBy2,
-        widthBy2 + " " + heightBy2
-      ].join(",");
-
-      if (this.fill && this.fill.toLive) {
-        markup.push(this.fill.toSVG(this, true));
-      }
-      if (this.stroke && this.stroke.toLive) {
-        markup.push(this.stroke.toSVG(this, true));
-      }
+          heightBy2 = this.height / 2,
+          points = [
+            -widthBy2 + ' ' + heightBy2,
+            '0 ' + -heightBy2,
+            widthBy2 + ' ' + heightBy2
+          ]
+          .join(',');
 
       markup.push(
         '<polygon ',
@@ -102,7 +97,7 @@
         '"/>'
       );
 
-      return markup.join('');
+      return reviver ? reviver(markup.join('')) : markup.join('');
     },
     /* _TO_SVG_END_ */
 
@@ -118,7 +113,8 @@
   /**
    * Returns fabric.Triangle instance from an object representation
    * @static
-   * @param object {Object} object to create an instance from
+   * @memberOf fabric.Triangle
+   * @param {Object} object Object to create an instance from
    * @return {Object} instance of Canvas.Triangle
    */
   fabric.Triangle.fromObject = function(object) {

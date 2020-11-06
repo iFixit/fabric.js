@@ -7,32 +7,44 @@ fabric.SprayBrush = fabric.util.createClass( fabric.BaseBrush, /** @lends fabric
   /**
    * Width of a spray
    * @type Number
+   * @default
    */
   width:              10,
 
   /**
    * Density of a spray (number of dots per chunk)
    * @type Number
+   * @default
    */
   density:            20,
 
   /**
    * Width of spray dots
    * @type Number
+   * @default
    */
   dotWidth:           1,
 
   /**
    * Width variance of spray dots
    * @type Number
+   * @default
    */
   dotWidthVariance:   1,
 
   /**
    * Whether opacity of a dot should be random
    * @type Boolean
+   * @default
    */
-  randomOpacity:      false,
+  randomOpacity:        false,
+
+  /**
+   * Whether overlapping dots (rectangles) should be removed (for performance reasons)
+   * @type Boolean
+   * @default
+   */
+  optimizeOverlapping:  true,
 
   /**
    * Constructor
@@ -51,7 +63,7 @@ fabric.SprayBrush = fabric.util.createClass( fabric.BaseBrush, /** @lends fabric
   onMouseDown: function(pointer) {
     this.sprayChunks.length = 0;
     this.canvas.clearContext(this.canvas.contextTop);
-    this.setShadowStyles();
+    this._setShadow();
 
     this.addSprayChunk(pointer);
     this.render();
@@ -70,8 +82,10 @@ fabric.SprayBrush = fabric.util.createClass( fabric.BaseBrush, /** @lends fabric
    * Invoked on mouse up
    */
   onMouseUp: function() {
-    var originalRenderOnAddition = this.canvas.renderOnAddition;
-    this.canvas.renderOnAddition = false;
+    var originalRenderOnAddRemove = this.canvas.renderOnAddRemove;
+    this.canvas.renderOnAddRemove = false;
+
+    var rects = [ ];
 
     for (var i = 0, ilen = this.sprayChunks.length; i < ilen; i++) {
       var sprayChunk = this.sprayChunks[i];
@@ -83,23 +97,53 @@ fabric.SprayBrush = fabric.util.createClass( fabric.BaseBrush, /** @lends fabric
           height: sprayChunk[j].width,
           left: sprayChunk[j].x + 1,
           top: sprayChunk[j].y + 1,
-          fill: this.color,
-          shadow: {
-            color: this.shadowColor || this.color,
-            blur: this.shadowBlur,
-            offsetX: this.shadowOffsetX,
-            offsetY: this.shadowOffsetY
-          }
+          originX: 'center',
+          originY: 'center',
+          fill: this.color
         });
 
-        this.canvas.add(rect);
+        this.shadow && rect.setShadow(this.shadow);
+        rects.push(rect);
       }
     }
 
+    if (this.optimizeOverlapping) {
+      rects = this._getOptimizedRects(rects);
+    }
+
+    var group = new fabric.Group(rects, { originX: 'center', originY: 'center' });
+    group.canvas = this.canvas;
+
+    this.canvas.add(group);
+    this.canvas.fire('path:created', { path: group });
+
     this.canvas.clearContext(this.canvas.contextTop);
-    this.removeShadowStyles();
-    this.canvas.renderOnAddition = originalRenderOnAddition;
+    this._resetShadow();
+    this.canvas.renderOnAddRemove = originalRenderOnAddRemove;
     this.canvas.renderAll();
+  },
+
+  /**
+   * @private
+   * @param {Array} rects
+   */
+  _getOptimizedRects: function(rects) {
+
+    // avoid creating duplicate rects at the same coordinates
+    var uniqueRects = { }, key;
+
+    for (var i = 0, len = rects.length; i < len; i++) {
+      key = rects[i].left + '' + rects[i].top;
+      if (!uniqueRects[key]) {
+        uniqueRects[key] = rects[i];
+      }
+    }
+    var uniqueRectsArray = [ ];
+    for (key in uniqueRects) {
+      uniqueRectsArray.push(uniqueRects[key]);
+    }
+
+    return uniqueRectsArray;
   },
 
   /**
@@ -108,7 +152,10 @@ fabric.SprayBrush = fabric.util.createClass( fabric.BaseBrush, /** @lends fabric
   render: function() {
     var ctx = this.canvas.contextTop;
     ctx.fillStyle = this.color;
+
+    var v = this.canvas.viewportTransform;
     ctx.save();
+    ctx.transform(v[0], v[1], v[2], v[3], v[4], v[5]);
 
     for (var i = 0, len = this.sprayChunkPoints.length; i < len; i++) {
       var point = this.sprayChunkPoints[i];
@@ -143,7 +190,8 @@ fabric.SprayBrush = fabric.util.createClass( fabric.BaseBrush, /** @lends fabric
         width = this.dotWidth;
       }
 
-      var point = { x: x, y: y, width: width };
+      var point = new fabric.Point(x, y);
+      point.width = width;
 
       if (this.randomOpacity) {
         point.opacity = fabric.util.getRandomInt(0, 100) / 100;
